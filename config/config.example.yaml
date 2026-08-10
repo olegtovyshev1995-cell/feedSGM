@@ -1,0 +1,91 @@
+# ═══════════════════════════════════════════════════════════════════
+#  Шаблон конфига генератора товарных фидов.
+#  Скопируйте в config/config.yaml и подставьте свои значения.
+#  Реальный config.yaml в git НЕ попадает (см. .gitignore).
+#
+#  Секрет (JSON-ключ сервисного аккаунта Google) сюда НЕ кладём —
+#  он берётся только из переменной окружения GOOGLE_SA_JSON.
+# ═══════════════════════════════════════════════════════════════════
+
+# ID Google-таблицы: часть URL между /d/ и /edit.
+# https://docs.google.com/spreadsheets/d/<ЭТОТ_ID>/edit
+spreadsheet_id: "PUT_YOUR_SPREADSHEET_ID_HERE"
+
+# Таймаут одного HTTP-запроса к Google Sheets API, сек.
+# 30с — с запасом на медленный ответ большой таблицы, но не настолько
+# долго, чтобы зависший запрос держал весь job (R4, R9).
+request_timeout_seconds: 30
+
+# Число попыток чтения листа при 429/5xx (R4).
+# 4 попытки с backoff 2→4→8с покрывают короткие всплески квоты/5xx;
+# 403/404 при этом НЕ ретраятся (это ошибка доступа, а не сбой).
+max_retries: 4
+
+# ── Площадки ───────────────────────────────────────────────────────
+# Новая площадка = один файл-маппер + строка в реестре MAPPERS
+# (src/mappers/__init__.py) + секция здесь. Оркестратор не меняется.
+platforms:
+
+  # ── Avito (автозагрузка, легковые автомобили) ────────────────────
+  - name: avito                 # ключ маппера в реестре MAPPERS
+    enabled: true
+    sheet: "Автозагрузка_авто"  # имя листа в таблице
+    header_row: 1               # строка с именами колонок (теги фида)
+    data_start_row: 5           # данные с 5-й строки (стр. 2–4 служебные,
+                                # стр. 5 в шаблоне — пример, замените данными)
+    id_column: "Id"             # стабильный Id объявления (R6)
+    output: "avito.xml"
+    # Обязательные колонки: без них объявление не разместится.
+    # Полный актуальный список — autoload.avito.ru/format.
+    required:
+      - Id
+      - Category
+      - Make
+      - Model
+      - Year
+      - Price
+      - Description
+      - Images
+      - Address
+      - ContactPhone
+
+  # ── Auto.ru (легковые автомобили) ────────────────────────────────
+  - name: autoru
+    enabled: true
+    sheet: "Фид (легковые)"
+    header_row: 2               # имена полей в строке 2
+    data_start_row: 4           # строка 3 — пример, данные с 4-й
+    id_column: "unique_id"
+    output: "autoru.xml"
+    required:
+      - unique_id
+      - mark_id
+      - folder_id
+      - modification_id
+      - body_type
+      - year
+      - color
+      - price
+      - currency
+      - availability
+      - images
+
+  # ── Drom (легковые автомобили) ───────────────────────────────────
+  # Свой лист с колонками под поля Offer (текстовые s*-поля, без ref.xml).
+  - name: drom
+    enabled: true
+    sheet: "Drom_легковые"
+    header_row: 1
+    data_start_row: 2
+    id_column: "idOffer"
+    output: "drom.xml"
+    # Обязательные поля Offer (жирные в инструкции Drom):
+    # idOffer, марка, модель, город, год, VIN, цена.
+    required:
+      - idOffer
+      - sMark
+      - sModel
+      - sCity
+      - YearOfMade
+      - VIN
+      - Price

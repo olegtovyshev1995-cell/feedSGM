@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data>
+  <cars>
+  <car>
+    <unique_id>SGM-RAPTOR-0001</unique_id>
+    <mark_id>Ford</mark_id>
+    <folder_id>Ranger Raptor</folder_id>
+    <modification_id>2.0d AT (210 л.с.) 4WD</modification_id>
+    <body_type>Пикап Double Cab</body_type>
+    <year>2026</year>
+    <color>серый</color>
+    <price>8269329</price>
+    <currency>RUR</currency>
+    <run>0</run>
+    <vin>MPBAMFE60SX697372</vin>
+    <availability>в наличии</availability>
+    <custom>растаможен</custom>
+    <state>новый</state>
+    <owners_number>Не было владельцев</owners_number>
+    <pts>оригинал</pts>
+    <wheel>Левый</wheel>
+    <engine_type>дизель</engine_type>
+    <drive>полный</drive>
+    <haggle>возможен</haggle>
+    <exchange>Не интересует</exchange>
+    <description>Ford Ranger Raptor 2.0 4×4 · 2026
+Новый, 0 км. Stop &amp; Go.</description>
+    <images><image>https://site.ru/raptor/1.jpg</image><image>https://site.ru/raptor/2.jpg</image></images>
+  </car>
+  </cars>
+</data>

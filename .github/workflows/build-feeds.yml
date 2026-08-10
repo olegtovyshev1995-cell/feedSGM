@@ -1,0 +1,77 @@
+name: build-feeds
+
+# Плановая суточная сборка фидов + ручной запуск.
+on:
+  schedule:
+    # 06:00 UTC = 09:00 МСК. ВНИМАНИЕ: точное время cron в GitHub Actions
+    # НЕ гарантируется — при высокой нагрузке запуск может задержаться на
+    # десятки минут (R11). Для суточной выгрузки это осознанно приемлемо.
+    - cron: "0 6 * * *"
+  workflow_dispatch: {}
+
+# Сериализуем запуски: одновременно идёт только одна сборка, чтобы два
+# джоба не коммитили в feeds/ наперегонки (R7).
+concurrency:
+  group: build-feeds
+  cancel-in-progress: false
+
+# Нужно право коммитить готовые фиды обратно в репозиторий.
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # Страховка от зависшего джоба (R9); на уровне HTTP есть свой таймаут (R4).
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Prepare config
+        env:
+          # spreadsheet_id — не секрет (он в URL таблицы), поэтому берём из
+          # GitHub Variables. config.yaml в git не хранится (R1) — собираем
+          # его в рантайме из закоммиченного шаблона config.example.yaml.
+          SPREADSHEET_ID: ${{ vars.SPREADSHEET_ID }}
+        run: |
+          if [ -z "$SPREADSHEET_ID" ]; then
+            echo "::error::Не задана переменная репозитория SPREADSHEET_ID (Settings → Secrets and variables → Actions → Variables)."
+            exit 1
+          fi
+          sed "s#PUT_YOUR_SPREADSHEET_ID_HERE#${SPREADSHEET_ID}#" \
+            config/config.example.yaml > config/config.yaml
+
+      - name: Build feeds
+        env:
+          # Секрет только из GitHub Secrets, никогда не в коде/репозитории (R1).
+          GOOGLE_SA_JSON: ${{ secrets.GOOGLE_SA_JSON }}
+          CONFIG_PATH: config/config.yaml
+        run: |
+          # Ненулевой код выхода при любой ошибке сборки красит job (R2, R6).
+          python -m src.build
+
+      - name: Commit feeds if changed
+        run: |
+          git config user.name "feed-bot"
+          git config user.email "feed-bot@users.noreply.github.com"
+          # Коммитим только при реальном diff в feeds/ (R8): нет изменений —
+          # нет пустого коммита.
+          if [ -n "$(git status --porcelain feeds/)" ]; then
+            git add feeds/
+            git commit -m "chore(feeds): scheduled rebuild [skip ci]"
+            git push
+          else
+            echo "feeds/ без изменений — коммит не требуется"
+          fi
