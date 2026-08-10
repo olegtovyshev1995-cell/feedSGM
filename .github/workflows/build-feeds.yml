@@ -75,3 +75,12 @@ jobs:
           else
             echo "feeds/ без изменений — коммит не требуется"
           fi
+
+      - name: Healthcheck published feeds
+        # Проверяем, что фиды реально доступны по публичному URL (как их будут
+        # забирать площадки). continue-on-error: raw-CDN может отдавать
+        # закэшированную версию сразу после push — это не повод красить job.
+        continue-on-error: true
+        env:
+          FEEDS_BASE_URL: https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/feeds
+        run: python scripts/check_feeds.py --config config/config.yaml
