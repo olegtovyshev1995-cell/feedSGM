@@ -1,0 +1,20 @@
+# Раздача фидов по HTTPS. Домен подставляется из переменной DOMAIN (.env).
+# Caddy сам получает и продлевает сертификат Let's Encrypt.
+#
+# Итоговые ссылки для площадок:
+#   https://<DOMAIN>/feeds/avito.xml
+#   https://<DOMAIN>/feeds/autoru.xml
+#   https://<DOMAIN>/feeds/drom.xml
+
+{$DOMAIN} {
+	encode zstd gzip
+	root * /srv
+	file_server browse
+
+	# Фиды меняются раз в сутки — короткий кэш на стороне площадок.
+	header /feeds/* Cache-Control "public, max-age=300"
+
+	log {
+		output stdout
+	}
+}

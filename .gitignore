@@ -30,3 +30,9 @@ feeds/*.tmp
 # должна переживать эфемерные прогоны GitHub Actions. Игнорируем только tmp.
 data/**/*.tmp
 data/**/*.json.tmp
+
+# ── Серверное развёртывание: секреты и реальный конфиг вне git ─────
+deploy/.env
+deploy/config.yaml
+deploy/secrets/*
+!deploy/secrets/.gitkeep
