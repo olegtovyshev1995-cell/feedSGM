@@ -87,6 +87,17 @@ class PhotoRef:
             "status": self.status,
         }
 
+    @staticmethod
+    def from_dict(d: dict) -> "PhotoRef":
+        return PhotoRef(
+            image_url=str(d.get("image_url", "")).strip(),
+            source_url=str(d.get("source_url", "")).strip(),
+            angle=str(d.get("angle", "")).strip(),
+            proof=str(d.get("proof", "")).strip(),
+            color=str(d.get("color", "")).strip(),
+            status=str(d.get("status", "")).strip(),
+        )
+
 
 @dataclass
 class ResearchResult:

@@ -55,6 +55,11 @@ photos:
   request_timeout_seconds: 60
   max_retries: 4
   # expiration_seconds: 15552000   # раскомментируйте для автоудаления (60–15552000)
+  uniquifier:
+    provider: "none"               # none — pass-through; pixflow — когда заведём контракт
+    base_url: "https://pixflow.ru/api/v1"
+    request_timeout_seconds: 120
+    max_retries: 4
 
 # ── Площадки ───────────────────────────────────────────────────────
 # Новая площадка = один файл-маппер + строка в реестре MAPPERS

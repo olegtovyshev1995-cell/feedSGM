@@ -128,6 +128,18 @@ class AgentConfig(BaseModel):
     max_tokens: int = Field(16000, ge=1024, le=64000)
 
 
+class UniquifierConfig(BaseModel):
+    """Настройки уникализатора фото (C4)."""
+
+    model_config = {"extra": "forbid"}
+
+    # none — не уникализировать (pass-through); pixflow — сервис pixflow.ru.
+    provider: str = "none"
+    base_url: str = "https://pixflow.ru/api/v1"
+    request_timeout_seconds: int = Field(120, ge=5, le=600)
+    max_retries: int = Field(4, ge=0, le=10)
+
+
 class PhotosConfig(BaseModel):
     """Настройки фото-стадии: хостинг (C3) и уникализация (C4)."""
 
@@ -140,6 +152,8 @@ class PhotosConfig(BaseModel):
     # Автоудаление залитых картинок через N секунд (60–15552000).
     # None — не удалять (imgbb хранит бессрочно).
     expiration_seconds: int | None = Field(None, ge=60, le=15552000)
+    # Уникализация (C4). По умолчанию выключена (pass-through).
+    uniquifier: UniquifierConfig = Field(default_factory=UniquifierConfig)
 
 
 class AppConfig(BaseModel):
