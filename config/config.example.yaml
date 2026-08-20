@@ -47,6 +47,15 @@ agent:
   max_web_searches: 8
   max_tokens: 16000
 
+# ── Фаза 2: фото (хостинг C3 / уникализация C4) ────────────────────
+# Ключ imgbb — только в секрете IMGBB_API_KEY, не здесь.
+photos:
+  host: "imgbb"
+  endpoint: "https://api.imgbb.com/1/upload"
+  request_timeout_seconds: 60
+  max_retries: 4
+  # expiration_seconds: 15552000   # раскомментируйте для автоудаления (60–15552000)
+
 # ── Площадки ───────────────────────────────────────────────────────
 # Новая площадка = один файл-маппер + строка в реестре MAPPERS
 # (src/mappers/__init__.py) + секция здесь. Оркестратор не меняется.

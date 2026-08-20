@@ -122,6 +122,20 @@ class AgentConfig(BaseModel):
     max_tokens: int = Field(16000, ge=1024, le=64000)
 
 
+class PhotosConfig(BaseModel):
+    """Настройки фото-стадии: хостинг (C3) и уникализация (C4)."""
+
+    model_config = {"extra": "forbid"}
+
+    host: str = "imgbb"                       # ключ реализации PhotoHost
+    endpoint: str = "https://api.imgbb.com/1/upload"
+    request_timeout_seconds: int = Field(60, ge=5, le=300)
+    max_retries: int = Field(4, ge=0, le=10)
+    # Автоудаление залитых картинок через N секунд (60–15552000).
+    # None — не удалять (imgbb хранит бессрочно).
+    expiration_seconds: int | None = Field(None, ge=60, le=15552000)
+
+
 class AppConfig(BaseModel):
     """Корневой конфиг приложения."""
 
@@ -135,6 +149,7 @@ class AppConfig(BaseModel):
     # работает и без них.
     ingest: IngestConfig | None = None
     agent: AgentConfig | None = None
+    photos: PhotosConfig | None = None
 
     @field_validator("platforms")
     @classmethod
