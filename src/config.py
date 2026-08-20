@@ -58,6 +58,70 @@ class PlatformConfig(BaseModel):
         return v
 
 
+class ColumnMapping(BaseModel):
+    """Сопоставление канонических полей авто с заголовками входного листа.
+
+    Значение — имя колонки в таблице. vin/make/model обязательны (по ним
+    агент ищет спецификацию); остальные — опциональны.
+    """
+
+    model_config = {"extra": "forbid"}
+
+    vin: str
+    make: str
+    model: str
+    modification: str | None = None
+    year: str | None = None
+    price: str | None = None
+    city: str | None = None
+
+
+class IngestConfig(BaseModel):
+    """Входной лист (минимальные данные по авто: VIN, марка, модель…)."""
+
+    model_config = {"extra": "forbid"}
+
+    sheet: str
+    header_row: int = Field(1, ge=1)
+    data_start_row: int = Field(2, ge=1)
+    columns: ColumnMapping
+
+    @field_validator("data_start_row")
+    @classmethod
+    def _after_header(cls, v: int, info) -> int:
+        header = info.data.get("header_row")
+        if header is not None and v <= header:
+            raise ValueError(
+                f"data_start_row ({v}) должен быть больше header_row ({header})"
+            )
+        return v
+
+
+class AgentConfig(BaseModel):
+    """Настройки AI-агента (Claude API) для стадии обогащения."""
+
+    model_config = {"extra": "forbid"}
+
+    # Модель по умолчанию — самая способная (см. рекомендации Anthropic).
+    # Для экономии можно поставить claude-sonnet-5 / claude-haiku-4-5.
+    model: str = "claude-opus-5"
+    # Таймаут одного запроса к Claude API, сек. Веб-поиск + рассуждение
+    # занимают заметно больше обычного чата, поэтому 120с, а не 30.
+    request_timeout_seconds: int = Field(120, ge=10, le=600)
+    max_retries: int = Field(4, ge=0, le=10)
+    # Глубина рассуждения: low|medium|high|xhigh|max.
+    effort: str = "high"
+    # Веб-поиск: включён по умолчанию (агент ищет ТТХ в интернете).
+    web_search: bool = True
+    # Тип server-tool веб-поиска. Для Opus 5/4.8 — _20260209;
+    # для моделей старше 4.6 нужен базовый web_search_20250305.
+    web_search_tool_type: str = "web_search_20260209"
+    # Потолок числа веб-поисков за один запрос (защита от разрастания).
+    max_web_searches: int = Field(8, ge=1, le=30)
+    # Потолок выходных токенов ответа (спека — это документ).
+    max_tokens: int = Field(16000, ge=1024, le=64000)
+
+
 class AppConfig(BaseModel):
     """Корневой конфиг приложения."""
 
@@ -67,6 +131,10 @@ class AppConfig(BaseModel):
     request_timeout_seconds: int = Field(30, ge=1, le=300)
     max_retries: int = Field(4, ge=1, le=10)
     platforms: list[PlatformConfig] = Field(..., min_length=1)
+    # Стадии обогащения (Фаза 1+). Опциональны: базовая сборка фидов
+    # работает и без них.
+    ingest: IngestConfig | None = None
+    agent: AgentConfig | None = None
 
     @field_validator("platforms")
     @classmethod

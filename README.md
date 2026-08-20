@@ -156,6 +156,41 @@ Google-таблицу (см. `templates/README.md`).
 
 ---
 
+## Пайплайн обогащения — Фаза 1 (вход → спецификация)
+
+Расширение: Google-таблица содержит **минимум** (VIN, марка, модель), а
+заводскую спецификацию добывает AI-агент (Claude API + веб-поиск).
+
+Слои (по стандарту backend-developer, всё за интерфейсами/DI):
+
+```
+src/
+├── pipeline/  models.py (CarInput) · ingest.py (Sheets→CarInput) ·
+│              state.py (идемпотентность по VIN) · enrich_spec.py (оркестрация+кэш)
+├── agent/     claude_client.py (Claude API, web_search, pause_turn, ретраи) ·
+│              spec_researcher.py (SpecResearcher DI) · prompts/spec_research.md
+└── enrich.py  entrypoint Фазы 1
+data/          specs/<VIN>.md (спеки) · state/<VIN>.json (статусы) — кэш в git
+```
+
+**Идемпотентность по VIN:** если вход для VIN не менялся (хэш) и спека есть —
+дорогой вызов Claude API **пропускается**. Кэш коммитится в репозиторий,
+поэтому переживает эфемерные прогоны Actions.
+
+Запуск:
+
+```bash
+export GOOGLE_SA_JSON="$(cat sa-key.json)"
+export ANTHROPIC_API_KEY="sk-ant-..."     # только из окружения/Secrets
+python -m src.enrich                        # добавьте --force для пересбора
+```
+
+Нужны секции `ingest` и `agent` в конфиге (см. `config.example.yaml`) и
+секрет `ANTHROPIC_API_KEY`. Модель по умолчанию — `claude-opus-5`
+(для экономии можно `claude-sonnet-5` / `claude-haiku-4-5`).
+
+---
+
 ## Диагностика типовых ошибок
 
 | Симптом (в логах stderr) | Причина | Что делать |

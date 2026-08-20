@@ -21,6 +21,32 @@ request_timeout_seconds: 30
 # 403/404 при этом НЕ ретраятся (это ошибка доступа, а не сбой).
 max_retries: 4
 
+# ── Фаза 1: обогащение спецификациями (опционально) ────────────────
+# Входной лист с минимумом данных по авто. Из него агент добывает ТТХ.
+ingest:
+  sheet: "Вход_авто"          # лист с VIN/маркой/моделью
+  header_row: 1
+  data_start_row: 2
+  columns:                    # канонич. поле -> имя колонки в листе
+    vin: "VIN"
+    make: "Марка"
+    model: "Модель"
+    modification: "Модификация"
+    year: "Год"
+    price: "Цена"
+    city: "Город"
+
+# Настройки AI-агента (Claude API).
+agent:
+  model: "claude-opus-5"      # для экономии: claude-sonnet-5 / claude-haiku-4-5
+  request_timeout_seconds: 120  # веб-поиск + рассуждение дольше обычного чата
+  max_retries: 4
+  effort: "high"              # low|medium|high|xhigh|max
+  web_search: true
+  web_search_tool_type: "web_search_20260209"  # для моделей старше 4.6: web_search_20250305
+  max_web_searches: 8
+  max_tokens: 16000
+
 # ── Площадки ───────────────────────────────────────────────────────
 # Новая площадка = один файл-маппер + строка в реестре MAPPERS
 # (src/mappers/__init__.py) + секция здесь. Оркестратор не меняется.
