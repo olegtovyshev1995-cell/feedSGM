@@ -1,0 +1,45 @@
+# Развёртывание генератора фидов на своём сервере.
+# Два сервиса: планировщик пайплайна + Caddy (раздача фидов + авто-HTTPS).
+#
+# Запуск:  cd deploy && docker compose up -d --build
+# Логи:    docker compose logs -f scheduler
+# Разово:  docker compose run --rm scheduler python -m src.enrich
+
+services:
+  scheduler:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    env_file: .env
+    volumes:
+      # Реальный конфиг и секреты — с хоста, в git их нет.
+      - ./config.yaml:/app/config/config.yaml:ro
+      - ./secrets:/app/secrets:ro
+      # Постоянные тома: готовые фиды и кэш пайплайна (спеки/фото/состояние).
+      - feeds:/app/feeds
+      - data:/app/data
+    command: ["bash", "deploy/run_pipeline.sh", "--loop"]
+    restart: unless-stopped
+
+  caddy:
+    image: caddy:2
+    depends_on:
+      - scheduler
+    environment:
+      # Домен берётся из .env (DOMAIN). Caddy сам выпустит HTTPS-сертификат.
+      DOMAIN: ${DOMAIN}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - feeds:/srv/feeds:ro          # фиды раздаются отсюда
+      - caddy_data:/data             # сертификаты Let's Encrypt
+      - caddy_config:/config
+    restart: unless-stopped
+
+volumes:
+  feeds:
+  data:
+  caddy_data:
+  caddy_config:

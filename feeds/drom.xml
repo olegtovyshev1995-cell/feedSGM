@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<avtoxml>
+  <lastBuildDate>2026-08-10T06:00:00+0000</lastBuildDate>
+  <Offers>
+    <Offer>
+      <idOffer>SGM-RAPTOR-0001</idOffer>
+      <sMark>Ford</sMark>
+      <sModel>Ranger Raptor</sModel>
+      <sCity>Самара</sCity>
+      <YearOfMade>2026</YearOfMade>
+      <VIN>MPBAMFE60SX697372</VIN>
+      <Price>8269329</Price>
+      <NewType>1</NewType>
+      <Volume>2000</Volume>
+      <Color>серый</Color>
+      <sTransmission>автомат</sTransmission>
+      <sEngineType>дизель</sEngineType>
+      <sDriveType>полный</sDriveType>
+      <sWheelType>левый</sWheelType>
+      <Haul>0</Haul>
+      <NumberOfOwners>0</NumberOfOwners>
+      <Power>210</Power>
+      <Whereabouts>в наличии</Whereabouts>
+      <DamagedType>0</DamagedType>
+      <Additional>Новый пикап. Гарантия 1 год. Отгрузка по РФ. A &amp; B.</Additional>
+      <Photos>
+        <Photo>https://site.ru/raptor/1.jpg</Photo>
+        <Photo>https://site.ru/raptor/2.jpg</Photo>
+      </Photos>
+    </Offer>
+  </Offers>
+</avtoxml>
