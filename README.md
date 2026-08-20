@@ -156,22 +156,32 @@ Google-таблицу (см. `templates/README.md`).
 
 ---
 
-## Пайплайн обогащения — Фаза 1 (вход → спецификация)
+## Пайплайн обогащения — Фаза 1 (вход → спецификация + фото)
 
 Расширение: Google-таблица содержит **минимум** (VIN, марка, модель), а
-заводскую спецификацию добывает AI-агент (Claude API + веб-поиск).
+заводскую спецификацию **и подтверждённые фото под модификацию** добывает
+AI-агент (Claude API + web_search + web_fetch) по встроенному скиллу
+`car-spec-researcher`.
 
 Слои (по стандарту backend-developer, всё за интерфейсами/DI):
 
 ```
 src/
-├── pipeline/  models.py (CarInput) · ingest.py (Sheets→CarInput) ·
+├── pipeline/  models.py (CarInput/PhotoRef/ResearchResult) · ingest.py (Sheets→CarInput) ·
 │              state.py (идемпотентность по VIN) · enrich_spec.py (оркестрация+кэш)
-├── agent/     claude_client.py (Claude API, web_search, pause_turn, ретраи) ·
-│              spec_researcher.py (SpecResearcher DI) · prompts/spec_research.md
+├── agent/     claude_client.py (Claude API: web_search+web_fetch, кэш промпта, pause_turn) ·
+│              skill_prompt.py (сборка промпта из скилла + контракт вывода) ·
+│              card_researcher.py (CardResearcher DI, парсинг спеки+JSON-фото) ·
+│              skills/car-spec-researcher/ (встроенный скилл: спека + фотоподбор)
 └── enrich.py  entrypoint Фазы 1
-data/          specs/<VIN>.md (спеки) · state/<VIN>.json (статусы) — кэш в git
+data/          specs/<VIN>.md (спеки) · photos/<VIN>/found.json (найденные фото) ·
+               state/<VIN>.json (статусы) — кэш в git
 ```
+
+Скилл возвращает спеку по строгому шаблону (14 блоков) и **JSON-блок с
+прямыми ссылками на фото**, у которых доказано 100% соответствие
+модификации; пайплайн парсит его и сохраняет `found.json` (вход для C3
+imgbb). Ссылки не на файл изображения (страницы-источники) отбрасываются.
 
 **Идемпотентность по VIN:** если вход для VIN не менялся (хэш) и спека есть —
 дорогой вызов Claude API **пропускается**. Кэш коммитится в репозиторий,

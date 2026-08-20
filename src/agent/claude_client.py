@@ -51,15 +51,32 @@ class ClaudeClient:
         return self._client
 
     def _tools(self) -> list[dict]:
-        if not self.cfg.web_search:
-            return []
-        return [
-            {
+        tools: list[dict] = []
+        if self.cfg.web_search:
+            tools.append({
                 "type": self.cfg.web_search_tool_type,
                 "name": "web_search",
                 "max_uses": self.cfg.max_web_searches,
-            }
-        ]
+            })
+        if getattr(self.cfg, "web_fetch", False):
+            tools.append({
+                "type": self.cfg.web_fetch_tool_type,
+                "name": "web_fetch",
+                "max_uses": self.cfg.max_web_fetches,
+            })
+        return tools
+
+    def _system_param(self, system: str):
+        """Готовит system: с кэшированием большого промпта скилла или строкой."""
+        if getattr(self.cfg, "cache_system", False):
+            # Кэшируем стабильный системный промпт (префикс) — на пачке авто
+            # это ~90% экономии на его токенах (prompt caching).
+            return [{
+                "type": "text",
+                "text": system,
+                "cache_control": {"type": "ephemeral"},
+            }]
+        return system
 
     def complete(self, system: str, user: str) -> str:
         """Один запрос к модели. Возвращает собранный текст ответа."""
@@ -75,7 +92,7 @@ class ClaudeClient:
                 kwargs = dict(
                     model=self.cfg.model,
                     max_tokens=self.cfg.max_tokens,
-                    system=system,
+                    system=self._system_param(system),
                     messages=messages,
                     thinking={"type": "adaptive"},
                     output_config={"effort": self.cfg.effort},

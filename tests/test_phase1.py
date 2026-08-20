@@ -5,7 +5,7 @@ from __future__ import annotations
 from src.config import ColumnMapping, load_config
 from src.pipeline.enrich_spec import enrich_specs
 from src.pipeline.ingest import IngestError, normalize_rows
-from src.pipeline.models import CarInput, sanitize_vin
+from src.pipeline.models import CarInput, PhotoRef, ResearchResult, sanitize_vin
 from src.pipeline.state import StateStore
 
 import pytest
@@ -69,17 +69,20 @@ def test_state_freshness(tmp_path):
 
 # ── enrich_specs (кэш/идемпотентность/устойчивость) ────────────────
 class StubResearcher:
-    """Заглушка: считает вызовы, может падать на заданных VIN."""
+    """Заглушка CardResearcher: считает вызовы, может падать на заданных VIN."""
 
     def __init__(self, fail_on: set[str] | None = None):
         self.calls = []
         self.fail_on = fail_on or set()
 
-    def research(self, car: CarInput) -> str:
+    def research(self, car: CarInput) -> ResearchResult:
         self.calls.append(car.vin)
         if car.vin in self.fail_on:
             raise RuntimeError("boom")
-        return f"# {car.title()}\n- Двигатель: тест [Факт]\n"
+        return ResearchResult(
+            spec_markdown=f"# {car.title()}\n- Двигатель: тест [Факт]\n",
+            photos=[PhotoRef(image_url="https://s/1.jpg", status="фото-факт")],
+        )
 
 
 def _cars():
@@ -91,34 +94,37 @@ def _cars():
 
 def test_enrich_writes_and_caches(tmp_path):
     store = StateStore(tmp_path / "state")
-    specs = tmp_path / "specs"
+    specs, photos = tmp_path / "specs", tmp_path / "photos"
     r = StubResearcher()
 
-    res1 = enrich_specs(_cars(), r, store, specs)
+    res1 = enrich_specs(_cars(), r, store, specs, photos)
     assert all(x.ok and not x.cached for x in res1)
     assert (specs / "V1.md").read_text(encoding="utf-8").startswith("# Ford Ranger")
+    assert (photos / "V1" / "found.json").is_file()          # фото сохранены
+    assert res1[0].photos_count == 1
     assert r.calls == ["V1", "V2"]
 
     # Повторный прогон: вход не менялся → LLM не вызывается.
-    res2 = enrich_specs(_cars(), r, store, specs)
+    res2 = enrich_specs(_cars(), r, store, specs, photos)
     assert all(x.cached for x in res2)
+    assert res2[0].photos_count == 1                         # счётчик из кэша
     assert r.calls == ["V1", "V2"]  # без новых вызовов
 
 
 def test_enrich_force_recomputes(tmp_path):
     store = StateStore(tmp_path / "state")
-    specs = tmp_path / "specs"
+    specs, photos = tmp_path / "specs", tmp_path / "photos"
     r = StubResearcher()
-    enrich_specs(_cars(), r, store, specs)
-    enrich_specs(_cars(), r, store, specs, force=True)
+    enrich_specs(_cars(), r, store, specs, photos)
+    enrich_specs(_cars(), r, store, specs, photos, force=True)
     assert r.calls == ["V1", "V2", "V1", "V2"]  # пересчитано
 
 
 def test_enrich_one_failure_does_not_stop_others(tmp_path):
     store = StateStore(tmp_path / "state")
-    specs = tmp_path / "specs"
+    specs, photos = tmp_path / "specs", tmp_path / "photos"
     r = StubResearcher(fail_on={"V1"})
-    res = enrich_specs(_cars(), r, store, specs)
+    res = enrich_specs(_cars(), r, store, specs, photos)
     by_vin = {x.vin: x for x in res}
     assert by_vin["V1"].ok is False and by_vin["V1"].error
     assert by_vin["V2"].ok is True

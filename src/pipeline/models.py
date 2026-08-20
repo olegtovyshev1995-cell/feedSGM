@@ -9,6 +9,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+from dataclasses import dataclass, field
 
 from pydantic import BaseModel, Field, field_validator
 
@@ -63,3 +64,33 @@ class CarInput(BaseModel):
         """Человекочитаемое название модификации для промпта/логов."""
         parts = [self.make, self.model, self.modification, self.year]
         return " ".join(p for p in parts if p).strip()
+
+
+@dataclass
+class PhotoRef:
+    """Найденное фото, соответствующее модификации (до хостинга)."""
+
+    image_url: str            # прямая ссылка на файл изображения (для imgbb)
+    source_url: str = ""      # страница-источник с подписью
+    angle: str = ""           # ракурс/что изображено
+    proof: str = ""           # чем доказано соответствие версии
+    color: str = ""           # цвет на фото
+    status: str = ""          # фото-факт | фото-уточнить
+
+    def to_dict(self) -> dict:
+        return {
+            "image_url": self.image_url,
+            "source_url": self.source_url,
+            "angle": self.angle,
+            "proof": self.proof,
+            "color": self.color,
+            "status": self.status,
+        }
+
+
+@dataclass
+class ResearchResult:
+    """Результат стадии B+C1: спека (Markdown) + подтверждённые фото."""
+
+    spec_markdown: str
+    photos: list[PhotoRef] = field(default_factory=list)

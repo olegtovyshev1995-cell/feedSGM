@@ -1,12 +1,12 @@
-"""Стадия B (оркестрация): CarInput[] → spec-файлы, с кэшем по VIN.
+"""Стадия B+C1 (оркестрация): CarInput[] → спека + список найденных фото.
 
-Не тащит бизнес-логику: вызывает SpecResearcher (DI), пишет Markdown
-атомарно, ведёт состояние. Дорогой вызов LLM пропускается, если для VIN
-спека уже есть и вход не менялся (идемпотентность).
+Кэш по VIN: если вход не менялся и спека есть — дорогой вызов LLM
+пропускается. Падение одного авто не рушит остальные.
 """
 
 from __future__ import annotations
 
+import json
 import logging
 from dataclasses import dataclass
 from pathlib import Path
@@ -22,7 +22,9 @@ STAGE = "spec"
 @dataclass
 class SpecResult:
     vin: str
-    path: Path
+    spec_path: Path
+    photos_path: Path
+    photos_count: int
     cached: bool           # True — взято из кэша, LLM не вызывался
     ok: bool               # False — стадия упала для этого авто
     error: str | None = None
@@ -45,41 +47,67 @@ def _atomic_write(path: Path, content: str) -> None:
 
 def enrich_specs(
     cars: list[CarInput],
-    researcher,               # SpecResearcher (DI)
+    researcher,               # CardResearcher (DI): research(car) -> ResearchResult
     store: StateStore,
     specs_dir: str | Path,
+    photos_dir: str | Path,
     force: bool = False,
 ) -> list[SpecResult]:
-    """Обогащает каждый авто спецификацией. Падение одного не рушит остальные."""
+    """Обогащает каждый авто спекой + списком фото. Кэш по VIN."""
     specs_dir = Path(specs_dir)
+    photos_dir = Path(photos_dir)
     results: list[SpecResult] = []
 
     for car in cars:
         vin = car.vin
-        out_path = specs_dir / f"{sanitize_vin(vin)}.md"
+        vin_safe = sanitize_vin(vin)
+        spec_path = specs_dir / f"{vin_safe}.md"
+        photos_path = photos_dir / vin_safe / "found.json"
         content_hash = car.content_hash()
 
-        # Идемпотентность: неизменившийся вход с готовой спекой не пересчитываем.
         if not force and store.is_fresh(vin, STAGE, content_hash):
-            logger.info("[%s] спека актуальна — пропуск (кэш)", vin)
-            results.append(SpecResult(vin, out_path, cached=True, ok=True))
+            count = _count_photos(photos_path)
+            logger.info("[%s] спека актуальна — пропуск (кэш), фото: %d", vin, count)
+            results.append(SpecResult(vin, spec_path, photos_path, count,
+                                      cached=True, ok=True))
             continue
 
         try:
-            markdown = researcher.research(car)
-            _atomic_write(out_path, markdown)
-            store.mark(vin, STAGE, content_hash, path=str(out_path))
-            logger.info("[%s] спека сохранена: %s (%d символов)",
-                        vin, out_path, len(markdown))
-            results.append(SpecResult(vin, out_path, cached=False, ok=True))
-        except Exception as exc:  # noqa: BLE001 — граница стадии: логируем, идём дальше
-            logger.error("[%s] не удалось получить спецификацию: %s", vin, exc)
-            results.append(
-                SpecResult(vin, out_path, cached=False, ok=False, error=str(exc))
+            result = researcher.research(car)
+            _atomic_write(spec_path, result.spec_markdown)
+            _atomic_write(
+                photos_path,
+                json.dumps(
+                    {"vin": vin_safe, "photos": [p.to_dict() for p in result.photos]},
+                    ensure_ascii=False, indent=2,
+                ),
             )
+            # В состоянии ключевой артефакт — спека; фото лежат рядом.
+            store.mark(vin, STAGE, content_hash, path=str(spec_path),
+                       extra={"photos_path": str(photos_path),
+                              "photos_count": len(result.photos)})
+            logger.info("[%s] спека сохранена (%d симв.), фото: %d",
+                        vin, len(result.spec_markdown), len(result.photos))
+            results.append(SpecResult(vin, spec_path, photos_path,
+                                      len(result.photos), cached=False, ok=True))
+        except Exception as exc:  # noqa: BLE001 — граница стадии: логируем, идём дальше
+            logger.error("[%s] не удалось собрать спеку/фото: %s", vin, exc)
+            results.append(SpecResult(vin, spec_path, photos_path, 0,
+                                      cached=False, ok=False, error=str(exc)))
 
     ok = sum(1 for r in results if r.ok)
     cached = sum(1 for r in results if r.cached)
-    logger.info("стадия spec: успешно %d/%d (из них из кэша %d)",
-                ok, len(results), cached)
+    total_photos = sum(r.photos_count for r in results if r.ok)
+    logger.info("стадия spec: успешно %d/%d (кэш %d), фото найдено суммарно %d",
+                ok, len(results), cached, total_photos)
     return results
+
+
+def _count_photos(photos_path: Path) -> int:
+    if not photos_path.is_file():
+        return 0
+    try:
+        data = json.loads(photos_path.read_text(encoding="utf-8"))
+        return len(data.get("photos", []))
+    except (json.JSONDecodeError, OSError):
+        return 0

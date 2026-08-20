@@ -118,6 +118,12 @@ class AgentConfig(BaseModel):
     web_search_tool_type: str = "web_search_20260209"
     # Потолок числа веб-поисков за один запрос (защита от разрастания).
     max_web_searches: int = Field(8, ge=1, le=30)
+    # Веб-фетч полных страниц (скилл берёт цифры/подписи из fetch, не сниппетов).
+    web_fetch: bool = True
+    web_fetch_tool_type: str = "web_fetch_20260209"
+    max_web_fetches: int = Field(6, ge=1, le=30)
+    # Кэшировать большой системный промпт скилла (экономия на пачке авто).
+    cache_system: bool = True
     # Потолок выходных токенов ответа (спека — это документ).
     max_tokens: int = Field(16000, ge=1024, le=64000)
 

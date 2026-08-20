@@ -18,6 +18,7 @@ from src.config import AppConfig, ConfigError, load_config, require_env
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = PROJECT_ROOT / "data"
 SPECS_DIR = DATA_DIR / "specs"
+PHOTOS_DIR = DATA_DIR / "photos"
 STATE_DIR = DATA_DIR / "state"
 
 logger = logging.getLogger("enrich")
@@ -50,8 +51,8 @@ def run(config_path: str, force: bool = False) -> int:
         raise ConfigError(f"GOOGLE_SA_JSON не является корректным JSON: {exc}") from exc
 
     # Ленивые импорты: держим entrypoint импортируемым без тяжёлых зависимостей.
+    from src.agent.card_researcher import ClaudeCardResearcher
     from src.agent.claude_client import ClaudeClient
-    from src.agent.spec_researcher import ClaudeSpecResearcher
     from src.pipeline.enrich_spec import enrich_specs
     from src.pipeline.ingest import read_car_inputs
     from src.pipeline.state import StateStore
@@ -62,10 +63,10 @@ def run(config_path: str, force: bool = False) -> int:
         return 0
 
     client = ClaudeClient(cfg.agent)  # ANTHROPIC_API_KEY проверится здесь
-    researcher = ClaudeSpecResearcher(client)
+    researcher = ClaudeCardResearcher(client)
     store = StateStore(STATE_DIR)
 
-    results = enrich_specs(cars, researcher, store, SPECS_DIR, force=force)
+    results = enrich_specs(cars, researcher, store, SPECS_DIR, PHOTOS_DIR, force=force)
 
     failed = [r.vin for r in results if not r.ok]
     if failed:
