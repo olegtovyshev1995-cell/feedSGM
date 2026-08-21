@@ -1,0 +1,18 @@
+# Раздача фидов. DOMAIN подставляется из .env.
+#   • домен (feed.example.ru) → Caddy сам выпустит HTTPS-сертификат;
+#   • :80 → раздача по HTTP (если домена пока нет, только IP).
+#
+# Ссылки: https://<DOMAIN>/feeds/autoru.xml  и  /feeds/drom.xml
+
+{$DOMAIN} {
+	encode zstd gzip
+	root * /srv
+	file_server browse
+
+	# Фиды меняются редко — короткий кэш на стороне площадок.
+	header /feeds/* Cache-Control "public, max-age=300"
+
+	log {
+		output stdout
+	}
+}

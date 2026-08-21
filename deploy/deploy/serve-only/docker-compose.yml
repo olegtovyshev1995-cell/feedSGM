@@ -1,0 +1,32 @@
+# Лёгкая раздача готовых фидов по HTTPS — без пайплайна и ключей.
+# Один контейнер Caddy отдаёт feeds/*.xml, сам выпускает сертификат.
+#
+# Фиды берутся из репозитория (папка ../../feeds). Обновление — git pull.
+#
+#   cd deploy/serve-only
+#   cp .env.example .env && nano .env      # вписать DOMAIN
+#   docker compose up -d
+#
+# Ссылки после старта:
+#   https://<DOMAIN>/feeds/autoru.xml
+#   https://<DOMAIN>/feeds/drom.xml
+
+services:
+  caddy:
+    image: caddy:2
+    environment:
+      DOMAIN: ${DOMAIN}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      # Готовые фиды из репозитория — только на чтение.
+      - ../../feeds:/srv/feeds:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    restart: unless-stopped
+
+volumes:
+  caddy_data:
+  caddy_config:
