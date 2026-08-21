@@ -18,6 +18,53 @@ class ConfigError(RuntimeError):
     """Понятная ошибка конфигурации/окружения для вывода пользователю."""
 
 
+class FanoutSettings(BaseModel):
+    """Расшивка одной строки листа по списку городов.
+
+    Нужна для регионального размещения: та же карточка авто уходит в
+    несколько городов, у каждой копии свой idOffer и свой idCity/sCity.
+    Логика — в src/fanout.py, здесь только параметры.
+    """
+
+    model_config = {"extra": "forbid"}
+
+    enabled: bool = False
+    # YAML со списком городов площадки: cities: [{idCity, sCity}, …].
+    # Путь относительно корня проекта.
+    cities_file: str = Field(..., min_length=1)
+    # Шаблон id копии. Доступны {id}, {city_id}, {city_name}.
+    id_template: str = "{id}-{city_id}"
+    city_id_column: str = "idCity"
+    city_name_column: str = "sCity"
+    # Предложный падеж исходного города («в Самаре») — для {city_in} в
+    # строке, город которой отсутствует в справочнике расшивки.
+    city_in_column: str = "sCityIn"
+    # Колонка-флаг «расшивать эту строку» (да/1/+). None — расшивать все.
+    flag_column: str | None = None
+    # Оставлять исходную строку как есть (уже размещённое объявление).
+    include_original: bool = True
+    # Колонки, где плейсхолдер {city} заменяется названием города.
+    substitute_columns: list[str] = Field(default_factory=list)
+    # Значения, которыми переопределяются поля ТОЛЬКО у копий (исходное
+    # объявление не трогаем). Пустая строка = убрать тег из копии.
+    # Типовой случай: у копий свой Whereabouts или пустой VIN.
+    clone_overrides: dict[str, str] = Field(default_factory=dict)
+    # Ограничить число городов (для прогонов и тестов). None — все.
+    limit: int | None = Field(None, ge=1)
+
+    @field_validator("id_template")
+    @classmethod
+    def _template_varies_by_city(cls, v: str) -> str:
+        # Без {city_id}/{city_name} все копии получат одинаковый idOffer,
+        # и площадка сочтёт их одним объявлением.
+        if "{city_id}" not in v and "{city_name}" not in v:
+            raise ValueError(
+                "id_template обязан содержать {city_id} или {city_name}, "
+                f"иначе id копий совпадут; получено: {v!r}"
+            )
+        return v
+
+
 class PlatformConfig(BaseModel):
     """Описание одной площадки (одного листа таблицы → одного фида)."""
 
@@ -38,6 +85,9 @@ class PlatformConfig(BaseModel):
     # Категорийные/произвольные доп. поля, которые маппер может пробросить
     # гибко, не завися от жёсткой схемы (R12).
     extra: dict[str, str] = Field(default_factory=dict)
+
+    # Расшивка по городам (региональное размещение). None — выключена.
+    fanout: FanoutSettings | None = None
 
     @field_validator("data_start_row")
     @classmethod

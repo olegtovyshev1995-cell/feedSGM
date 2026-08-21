@@ -10,7 +10,14 @@ from xml.dom.minidom import parseString
 import pytest
 
 from src.build import atomic_write
-from src.config import AppConfig, ConfigError, PlatformConfig, load_config
+from src.config import (
+    AppConfig,
+    ConfigError,
+    FanoutSettings,
+    PlatformConfig,
+    load_config,
+)
+from src.fanout import City, FanoutError, expand_records, load_cities
 from src.mappers import MAPPERS
 from src.mappers.base import cdata, split_list, xml_escape
 from src.sheets_client import rows_to_dicts
@@ -265,3 +272,123 @@ def test_config_rejects_data_start_not_after_header(tmp_path):
     )
     with pytest.raises(ConfigError):
         load_config(str(bad))
+
+
+# ── Расшивка по городам ────────────────────────────────────────────
+_CITIES = [
+    City(id="325", name="Балашиха", in_form="в Балашихе"),
+    City(id="663", name="Красногорск, Московская область", in_form="в Красногорске"),
+    City(id="1123", name="Химки", in_form="в Химках"),
+]
+
+
+def _fanout(**kw) -> FanoutSettings:
+    base = {"enabled": True, "cities_file": "config/drom_mo_cities.yaml"}
+    base.update(kw)
+    return FanoutSettings(**base)
+
+
+def _car(**kw) -> dict[str, str]:
+    row = {
+        "idOffer": "SGM-1", "sMark": "Toyota", "sModel": "Camry",
+        "idCity": "663", "sCity": "Красногорск, Московская область",
+        "YearOfMade": "2018", "Price": "2500000", "VIN": "XW7BF4FK00S123456",
+        "Additional": "Продаётся в городе {city}.",
+    }
+    row.update(kw)
+    return row
+
+
+def test_fanout_expands_row_over_cities_and_keeps_original():
+    out = expand_records([_car()], _CITIES, _fanout(), "idOffer")
+
+    # исходная строка + города, кроме её собственного (663)
+    assert len(out) == 3
+    assert out[0]["idOffer"] == "SGM-1"
+    assert out[0]["idCity"] == "663"
+    assert [r["idCity"] for r in out[1:]] == ["325", "1123"]
+    assert [r["idOffer"] for r in out[1:]] == ["SGM-1-325", "SGM-1-1123"]
+    assert out[1]["sCity"] == "Балашиха"
+
+
+def test_fanout_skips_city_equal_to_source_city():
+    ids = [r["idCity"] for r in expand_records([_car()], _CITIES, _fanout(), "idOffer")]
+    assert ids.count("663") == 1  # не задвоили исходный город
+
+
+def test_fanout_substitutes_city_placeholder_only_where_asked():
+    out = expand_records(
+        [_car()], _CITIES, _fanout(substitute_columns=["Additional"]), "idOffer"
+    )
+    assert out[1]["Additional"] == "Продаётся в городе Балашиха."
+    # длинное имя из справочника в текст не протекает
+    assert "Московская область" not in out[2]["Additional"]
+    # в исходной строке подставляется её собственный город
+    assert out[0]["Additional"] == "Продаётся в городе Красногорск."
+
+
+def test_fanout_without_original_and_with_limit():
+    out = expand_records(
+        [_car()], _CITIES, _fanout(include_original=False, limit=2), "idOffer"
+    )
+    assert [r["idCity"] for r in out] == ["325"]  # 663 отброшен как исходный
+
+
+def test_fanout_flag_column_filters_rows():
+    rows = [_car(), _car(idOffer="SGM-2", VIN="X2", **{"Расшивка": "нет"})]
+    rows[0]["Расшивка"] = "да"
+    out = expand_records(rows, _CITIES, _fanout(flag_column="Расшивка"), "idOffer")
+    ids = [r["idOffer"] for r in out]
+    assert ids == ["SGM-1", "SGM-1-325", "SGM-1-1123", "SGM-2"]
+
+
+def test_fanout_detects_id_collision():
+    # Две машины с одинаковым idOffer — расшивка обязана это поймать.
+    rows = [_car(), _car(VIN="X2")]
+    with pytest.raises(FanoutError, match="дубль"):
+        expand_records(rows, _CITIES, _fanout(), "idOffer")
+
+
+def test_fanout_city_name_uses_full_ref_value_in_scity():
+    out = expand_records([_car(idCity="", sCity="")], _CITIES, _fanout(), "idOffer")
+    kras = [r for r in out if r["idCity"] == "663"][0]
+    assert kras["sCity"] == "Красногорск, Московская область"
+
+
+def test_fanout_substitutes_prepositional_case():
+    """{city_in} даёт «в Химках», а не «в Химки» — 129 объявлений читают люди."""
+    row = _car(Additional="Доставка {city_in}. Склад: {city}.")
+    out = expand_records(
+        [row], _CITIES, _fanout(substitute_columns=["Additional"]), "idOffer"
+    )
+    assert out[0]["Additional"] == "Доставка в Красногорске. Склад: Красногорск."
+    assert out[1]["Additional"] == "Доставка в Балашихе. Склад: Балашиха."
+    assert out[2]["Additional"] == "Доставка в Химках. Склад: Химки."
+
+
+def test_fanout_falls_back_when_case_form_missing():
+    cities = [City(id="325", name="Балашиха")]  # sCityIn в справочнике нет
+    out = expand_records(
+        [_car(idCity="", sCity="", Additional="Доставка {city_in}.")],
+        cities, _fanout(substitute_columns=["Additional"]), "idOffer",
+    )
+    assert out[-1]["Additional"] == "Доставка в Балашиха."
+
+
+def test_load_cities_reads_generated_dictionary():
+    cities = load_cities("config/drom_mo_cities.yaml")
+    assert len(cities) == 129
+    by_id = {c.id: c.name for c in cities}
+    assert by_id["325"] == "Балашиха"
+    assert by_id["1123"] == "Химки"
+    assert by_id["663"] == "Красногорск, Московская область"
+
+    by_id_full = {c.id: c for c in cities}
+    assert by_id_full["1123"].prepositional == "в Химках"
+    assert by_id_full["663"].prepositional == "в Красногорске"
+    assert by_id_full["855"].prepositional == "в Одинцово"
+
+
+def test_load_cities_rejects_missing_file():
+    with pytest.raises(FanoutError, match="не найден"):
+        load_cities("config/нет-такого.yaml")

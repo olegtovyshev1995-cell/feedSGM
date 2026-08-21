@@ -1,0 +1,147 @@
+# Ford Ranger Raptor 2.0 4×4, 2026 — объявление №465119198 (кабинет sgmautogroup).
+# Данные сняты с формы редактирования на Дроме, id — из data/refs/drom_ref.xml.
+#
+#   python -m scripts.build_from_card data/cards/ford-ranger-raptor-2026.yaml --limit 3
+#   python -m scripts.build_from_card data/cards/ford-ranger-raptor-2026.yaml
+#
+# ВНИМАНИЕ по VIN. Дром обновляет объявление при совпадении VIN ИЛИ idOffer.
+# 129 копий с одним VIN площадка считает одним автомобилем и схлопнет их в
+# одно объявление. Поэтому у копий VIN пуст (clone_overrides), а объявление
+# идёт со статусом «под заказ» — в справочнике спецтехники Дром прямо
+# освобождает от VIN объявления «В пути» и «Под заказ». Для легковых это
+# нужно подтвердить на выгрузке: сначала прогон с limit: 3 и отчёт Дрома.
+
+fanout:
+  enabled: true
+  cities_file: "config/drom_mo_cities.yaml"
+  id_template: "{id}-{city_id}"
+  include_original: true          # объявление №465119198 в Самаре остаётся
+  substitute_columns: ["Additional"]
+  clone_overrides:
+    VIN: ""                       # см. блок «ВНИМАНИЕ по VIN» выше
+  limit: null                     # 129 городов МО; для теста поставьте 3
+
+offer:
+  idOffer: "SGM-RAPTOR-0001"
+
+  # ── Идентификация ────────────────────────────────────────────────
+  idMark: "49"                    # Ford
+  sMark: "Ford"
+  idModel: "3059"                 # Ranger — «Ranger Raptor» в справочнике нет,
+  sModel: "Ranger"                #   версия уходит в sComplectation
+  sComplectation: "Raptor 2.0 Bi-Turbo 4x4 AT"
+  VIN: "MPBAMFE60SX697372"
+  YearOfMade: "2026"
+
+  # ── Где и почём ──────────────────────────────────────────────────
+  idCity: "137"                   # Самара — город исходного объявления
+  sCity: "Самара"
+  sCityIn: "в Самаре"          # предложный падеж для {city_in} исходной строки
+  idCountry: "0"
+  Price: "8300000"                # с учётом НДС 22%
+  idCurrency: "1"                 # rub
+  Whereabouts: "2"                # 2 — под заказ
+
+  # ── Техника (с формы Дрома) ──────────────────────────────────────
+  idNewType: "1"                  # новый автомобиль
+  Haul: "0"
+  idHaulRussiaType: "0"           # без пробега по РФ
+  Volume: "2000"                  # 2.0 л в куб. см
+  Power: "210"
+  idFrameType: "12"               # Пикап
+  idColor: "4"                    # серый
+  idTransmission: "2"             # автомат (AT)
+  idEngineType: "2"               # дизель
+  idDriveType: "3"                # полный (4WD)
+  idWheelType: "2"                # левый
+  idGbo: "0"
+  idDamagedType: "0"
+  NumberOfOwners: "0"
+
+  # ── Контакты ─────────────────────────────────────────────────────
+  Phone: ""                       # пусто — берётся из карточки продавца
+
+  # ── Фото ─────────────────────────────────────────────────────────
+  # ВАЖНО: Дром принимает ПРЯМЫЕ ссылки на файл .jpg/.jpeg.
+  # Ссылки вида https://ibb.co/XXXXXXX — это HTML-страница просмотра,
+  # фото по ним не загрузится. Нужен «Direct link» из imgbb:
+  #   https://i.ibb.co/<хеш>/<имя>.jpg
+  PhotoDir: ""
+  PhotoMain: ""
+  Photos: "https://ibb.co/C5988sKL|https://ibb.co/cS0dMx5y|https://ibb.co/nqmjs6R7|https://ibb.co/PpGs36j|https://ibb.co/cS4zcbdn|https://ibb.co/QvPtJfpz|https://ibb.co/SDyg1TWq|https://ibb.co/wh43VgN0|https://ibb.co/Pv4L4PXq|https://ibb.co/Fq81FQbh|https://ibb.co/MDpW4nhz|https://ibb.co/kVcx3jMq|https://ibb.co/tTmBqzB1|https://ibb.co/zTYB8L1G|https://ibb.co/rRX6jQY1|https://ibb.co/TMXbxLQj|https://ibb.co/VW3FRsLh|https://ibb.co/fGtZJdjS|https://ibb.co/v6QP3pDf|https://ibb.co/VpvHpsDQ|https://ibb.co/tw0R4FXB|https://ibb.co/d4SFz48M|https://ibb.co/KjP0sLF9|https://ibb.co/tMxXdMQC|https://ibb.co/Cs7GQHbQ|https://ibb.co/Mk6jPPSt|https://ibb.co/k20bCx5W|https://ibb.co/DHRt8WDN|https://ibb.co/sdHgpcJp|https://ibb.co/67C2tgK4"
+
+  # ── Текст объявления ─────────────────────────────────────────────
+  # {city} — именительный падеж («Химки»), {city_in} — предложный
+  # с предлогом («в Химках», «во Фрязино»).
+  Additional: |
+    🏁 Ford Ranger Raptor 2.0 4×4 · 2026
+    Новый, 0 км. Под заказ.
+    Доставка {city_in} и по всей России.
+
+    ⚙️ ФАКТЫ
+
+    Дизель 2.0 л, битурбо
+    Автомат, 10 передач
+    Полный привод 4×4
+    Terrain Management — 7 режимов движения
+    Шины 285/70 R17, легкосплавные диски
+
+    Пикап, двойная кабина
+    4 двери · 5 мест · левый руль
+    5381×2028×1922 мм · 2330 кг
+    Салон в коже · сборка Таиланд
+
+    📱 В салоне:
+    Экран 12″, приборка 12,4″
+    SYNC 4A, беспроводные CarPlay и Android Auto
+    Сиденья Raptor, электрорегулировка 10 направлений
+    Двухзонный климат с обдувом 2-го ряда
+    Адаптивный круиз Stop & Go
+    Беспроводная зарядка, розетки 12V и 230V, USB в двух рядах
+
+    🛡️ Безопасность:
+    7 подушек, ISOFIX
+    Автоторможение с распознаванием пешеходов
+    Ассистент экстренного манёвра
+    Контроль слепых зон
+    Камеры 360°, парктроники, автопилот парковки
+    ABS, ESP, HDC, TPMS
+
+    ✨ Снаружи:
+    Матричные LED-фары с адаптивным дальним
+    C-образные ходовые огни, противотуманки
+    Арки Raptor, защита днища
+    Bedliner с розетками 12V и 230V
+    Буксировочные крюки спереди и сзади
+
+    🎨 Цвета под заказ:
+    белый · синий · серый · оранжевый · чёрный
+
+    🚀 ЧТО ЭТО ДАЁТ
+
+    Дизель-битурбо и полный привод
+    везут по бездорожью и держат
+    трассу под грузом.
+
+    Автомат на 10 передач бережёт
+    топливо и мягко переключается.
+
+    7 режимов движения сами
+    настраивают машину под покрытие —
+    песок, грязь, снег.
+
+    Двойная кабина увозит пятерых,
+    кузов остаётся под работу.
+
+    📋 УСЛОВИЯ
+
+    Продавец — SGM Auto Group
+    Гарантия 1 год
+    Цена 8 300 000 ₽ с учётом НДС 22%
+    Полный пакет документов для юрлиц
+    Под заказ · доставка {city_in} и по всей России
+
+    📞 Позвоните.
+    Назовём свободные цвета Raptor
+    и сроки поставки, рассчитаем
+    доставку {city_in}.

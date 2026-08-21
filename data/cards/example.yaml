@@ -1,0 +1,48 @@
+# Карточка одного автомобиля для фида Drom.
+# Ключи = имена тегов Offer (docs/drom-autoload.md). Значения id — из
+# data/refs/drom_ref.xml. Плейсхолдер {city} в тексте заменяется названием
+# города при расшивке.
+#
+# Сборка:  python -m scripts.build_from_card data/cards/example.yaml
+
+fanout:
+  enabled: true
+  cities_file: "config/drom_mo_cities.yaml"
+  id_template: "{id}-{city_id}"
+  include_original: true          # исходное объявление оставить как есть
+  substitute_columns: ["Additional"]
+  limit: null                     # null — все города справочника
+
+offer:
+  idOffer: "SGM-0001"
+  idMark: "9"                     # Toyota
+  sMark: "Toyota"
+  idModel: "16"
+  sModel: "Camry"
+  idCity: "663"                   # Красногорск, Московская область
+  sCity: "Красногорск, Московская область"
+  YearOfMade: "2018"
+  Price: "2500000"
+  VIN: "ЗАПОЛНИТЕ_РЕАЛЬНЫЙ_VIN"
+  idNewType: "0"                  # 0 — с пробегом, 1 — новый
+  Volume: "2494"
+  Power: "181"
+  idFrameType: "10"               # Седан
+  idColor: "12"                   # белый
+  idTransmission: "2"             # автомат (AT)
+  idEngineType: "1"               # бензин
+  idDriveType: "1"                # передний
+  idWheelType: "2"                # левый
+  Haul: "78000"
+  idHaulRussiaType: "1"
+  NumberOfOwners: "1"
+  sComplectation: "2.5 AT Престиж"
+  Whereabouts: "0"                # в наличии
+  idDamagedType: "0"
+  Phone: "+7(900)000-00-00"
+  PhotoDir: ""                    # пусто — в Photos абсолютные ссылки
+  PhotoMain: ""
+  Photos: "https://example.com/1.jpg|https://example.com/2.jpg"
+  Additional: |
+    Toyota Camry XV70, 2018 г.
+    Автомобиль {city_in} — доставка и осмотр по договорённости.

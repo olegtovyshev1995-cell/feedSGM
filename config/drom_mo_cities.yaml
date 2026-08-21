@@ -1,264 +1,394 @@
 # Города Московской области для расшивки объявлений на Drom.
 # СГЕНЕРИРОВАНО: python -m scripts.gen_drom_mo_cities — не править руками.
 # Источник: data/refs/drom_ref.xml (секция <Cities>).
+# sCity — как в справочнике; sCityIn — предложный падеж для текста.
 # Всего городов: 129.
 
 cities:
   - idCity: 299
     sCity: "Апрелевка"
+    sCityIn: "в Апрелевке"
   - idCity: 2651
     sCity: "Архангельское, Московская область"
+    sCityIn: "в Архангельском"
   - idCity: 325
     sCity: "Балашиха"
+    sCityIn: "в Балашихе"
   - idCity: 1232
     sCity: "Белоозёрский"
+    sCityIn: "в Белоозёрском"
   - idCity: 2057
     sCity: "Богородское, Московская область"
+    sCityIn: "в Богородском"
   - idCity: 2689
     sCity: "Большевик, Московская область"
+    sCityIn: "в Большевике"
   - idCity: 376
     sCity: "Бронницы"
+    sCityIn: "в Бронницах"
   - idCity: 1369
     sCity: "Быково, Московская область"
+    sCityIn: "в Быково"
   - idCity: 392
     sCity: "Верея"
+    sCityIn: "в Верее"
   - idCity: 403
     sCity: "Видное"
+    sCityIn: "в Видном"
   - idCity: 1203
     sCity: "Власиха, Московская область"
+    sCityIn: "во Власихе"
   - idCity: 410
     sCity: "Волоколамск"
+    sCityIn: "в Волоколамске"
   - idCity: 417
     sCity: "Воскресенск"
+    sCityIn: "в Воскресенске"
   - idCity: 2656
     sCity: "Воскресенское, Московская область"
+    sCityIn: "в Воскресенском"
   - idCity: 2034
     sCity: "Восход, Московская область"
+    sCityIn: "в Восходе"
   - idCity: 423
     sCity: "Высоковск"
+    sCityIn: "в Высоковске"
   - idCity: 441
     sCity: "Голицыно"
+    sCityIn: "в Голицыно"
   - idCity: 470
     sCity: "Дедовск"
+    sCityIn: "в Дедовске"
   - idCity: 475
     sCity: "Дзержинский"
+    sCityIn: "в Дзержинском"
   - idCity: 479
     sCity: "Дмитров"
+    sCityIn: "в Дмитрове"
   - idCity: 261
     sCity: "Долгопрудный"
+    sCityIn: "в Долгопрудном"
   - idCity: 484
     sCity: "Домодедово"
+    sCityIn: "в Домодедово"
   - idCity: 488
     sCity: "Дрезна"
+    sCityIn: "в Дрезне"
   - idCity: 2679
     sCity: "Дружба, Московская область"
+    sCityIn: "в Дружбе"
   - idCity: 41
     sCity: "Дубна, Московская область"
+    sCityIn: "в Дубне"
   - idCity: 493
     sCity: "Егорьевск"
+    sCityIn: "в Егорьевске"
   - idCity: 506
     sCity: "Железнодорожный, Московская область"
+    sCityIn: "в Железнодорожном"
   - idCity: 513
     sCity: "Жуковский"
+    sCityIn: "в Жуковском"
   - idCity: 1296
     sCity: "Запрудня"
+    sCityIn: "в Запрудне"
   - idCity: 525
     sCity: "Зарайск"
+    sCityIn: "в Зарайске"
   - idCity: 529
     sCity: "Звенигород"
+    sCityIn: "в Звенигороде"
   - idCity: 545
     sCity: "Ивантеевка, Московская область"
+    sCityIn: "в Ивантеевке"
   - idCity: 2040
     sCity: "Икша"
+    sCityIn: "в Икше"
   - idCity: 1380
     sCity: "Ильинский, Московская область"
+    sCityIn: "в Ильинском"
   - idCity: 558
     sCity: "Истра"
+    sCityIn: "в Истре"
   - idCity: 597
     sCity: "Кашира"
+    sCityIn: "в Кашире"
   - idCity: 620
     sCity: "Климовск"
+    sCityIn: "в Климовске"
   - idCity: 259
     sCity: "Клин"
+    sCityIn: "в Клине"
   - idCity: 632
     sCity: "Коломна"
+    sCityIn: "в Коломне"
   - idCity: 646
     sCity: "Королёв"
+    sCityIn: "в Королёве"
   - idCity: 652
     sCity: "Котельники"
+    sCityIn: "в Котельниках"
   - idCity: 1210
     sCity: "Красково"
+    sCityIn: "в Красково"
   - idCity: 660
     sCity: "Красноармейск, Московская область"
+    sCityIn: "в Красноармейске"
   - idCity: 663
     sCity: "Красногорск, Московская область"
+    sCityIn: "в Красногорске"
   - idCity: 665
     sCity: "Краснозаводск"
+    sCityIn: "в Краснозаводске"
   - idCity: 666
     sCity: "Краснознаменск, Московская область"
+    sCityIn: "в Краснознаменске"
   - idCity: 2056
     sCity: "Кратово"
+    sCityIn: "в Кратово"
   - idCity: 683
     sCity: "Кубинка"
+    sCityIn: "в Кубинке"
   - idCity: 2667
     sCity: "Кудиново, Московская область"
+    sCityIn: "в Кудиново"
   - idCity: 695
     sCity: "Куровское"
+    sCityIn: "в Куровском"
   - idCity: 2445
     sCity: "Лесной, Московская область"
+    sCityIn: "в Лесном"
   - idCity: 717
     sCity: "Ликино-Дулёво"
+    sCityIn: "в Ликино-Дулёво"
   - idCity: 721
     sCity: "Лобня"
+    sCityIn: "в Лобне"
   - idCity: 724
     sCity: "Лосино-Петровский"
+    sCityIn: "в Лосино-Петровском"
   - idCity: 728
     sCity: "Луховицы"
+    sCityIn: "в Луховицах"
   - idCity: 731
     sCity: "Лыткарино"
+    sCityIn: "в Лыткарино"
   - idCity: 734
     sCity: "Люберцы"
+    sCityIn: "в Люберцах"
   - idCity: 1206
     sCity: "Малаховка"
+    sCityIn: "в Малаховке"
   - idCity: 2661
     sCity: "Марфино, Московская область"
+    sCityIn: "в Марфино"
   - idCity: 2061
     sCity: "Менделеево, Московская область"
+    sCityIn: "в Менделеево"
   - idCity: 2069
     sCity: "Мишеронский"
+    sCityIn: "в Мишеронском"
   - idCity: 778
     sCity: "Можайск"
+    sCityIn: "в Можайске"
   - idCity: 2036
     sCity: "Молодежный, Московская область"
+    sCityIn: "в Молодежном"
   - idCity: 1209
     sCity: "Монино"
+    sCityIn: "в Монино"
   - idCity: 785
     sCity: "Московский, Московская область"
+    sCityIn: "в Московском"
   - idCity: 790
     sCity: "Мытищи"
+    sCityIn: "в Мытищах"
   - idCity: 797
     sCity: "Наро-Фоминск"
+    sCityIn: "в Наро-Фоминске"
   - idCity: 1198
     sCity: "Нахабино"
+    sCityIn: "в Нахабино"
   - idCity: 1381
     sCity: "Некрасовский"
+    sCityIn: "в Некрасовском"
   - idCity: 2671
     sCity: "Новый Городок, Московская область"
+    sCityIn: "в Новом Городке"
   - idCity: 844
     sCity: "Ногинск"
+    sCityIn: "в Ногинске"
   - idCity: 2049
     sCity: "Обухово"
+    sCityIn: "в Обухово"
   - idCity: 855
     sCity: "Одинцово"
+    sCityIn: "в Одинцово"
   - idCity: 856
     sCity: "Ожерелье"
+    sCityIn: "в Ожерелье"
   - idCity: 859
     sCity: "Озёры"
+    sCityIn: "в Озёрах"
   - idCity: 2659
     sCity: "Октябрьский, Московская область"
+    sCityIn: "в Октябрьском"
   - idCity: 116
     sCity: "Орехово-Зуево"
+    sCityIn: "в Орехово-Зуево"
   - idCity: 882
     sCity: "Павловский Посад"
+    sCityIn: "в Павловском Посаде"
   - idCity: 889
     sCity: "Пересвет"
+    sCityIn: "в Пересвете"
   - idCity: 2043
     sCity: "Пески, Московская область"
+    sCityIn: "в Песках"
   - idCity: 906
     sCity: "Подольск"
+    sCityIn: "в Подольске"
   - idCity: 2060
     sCity: "Пролетарский, Московская область"
+    sCityIn: "в Пролетарском"
   - idCity: 928
     sCity: "Протвино"
+    sCityIn: "в Протвино"
   - idCity: 935
     sCity: "Пушкино, Московская область"
+    sCityIn: "в Пушкино"
   - idCity: 127
     sCity: "Пущино"
+    sCityIn: "в Пущино"
   - idCity: 2657
     sCity: "Развилка"
+    sCityIn: "в Развилке"
   - idCity: 941
     sCity: "Раменское"
+    sCityIn: "в Раменском"
   - idCity: 945
     sCity: "Реутов"
+    sCityIn: "в Реутове"
   - idCity: 2516
     sCity: "Родники, Московская область"
+    sCityIn: "в Родниках"
   - idCity: 2649
     sCity: "Рождествено, Московская область"
+    sCityIn: "в Рождествено"
   - idCity: 950
     sCity: "Рошаль"
+    sCityIn: "в Рошале"
   - idCity: 953
     sCity: "Руза"
+    sCityIn: "в Рузе"
   - idCity: 2072
     sCity: "Свердловский"
+    sCityIn: "в Свердловском"
   - idCity: 2067
     sCity: "Северный, Московская область"
+    sCityIn: "в Северном"
   - idCity: 1302
     sCity: "Селятино"
+    sCityIn: "в Селятино"
   - idCity: 232
     sCity: "Сергиев Посад"
+    sCityIn: "в Сергиевом Посаде"
   - idCity: 2498
     sCity: "Серебряные Пруды"
+    sCityIn: "в Серебряных Прудах"
   - idCity: 988
     sCity: "Серпухов"
+    sCityIn: "в Серпухове"
   - idCity: 2494
     sCity: "Снегири"
+    sCityIn: "в Снегирях"
   - idCity: 1010
     sCity: "Солнечногорск"
+    sCityIn: "в Солнечногорске"
   - idCity: 1248
     sCity: "Софрино"
+    sCityIn: "в Софрино"
   - idCity: 1029
     sCity: "Старая Купавна"
+    sCityIn: "в Старой Купавне"
   - idCity: 2068
     sCity: "Столбовая"
+    sCityIn: "в Столбовой"
   - idCity: 2660
     sCity: "Строитель, Московская область"
+    sCityIn: "в Строителе"
   - idCity: 1035
     sCity: "Ступино"
+    sCityIn: "в Ступино"
   - idCity: 1054
     sCity: "Талдом"
+    sCityIn: "в Талдоме"
   - idCity: 1200
     sCity: "Томилино"
+    sCityIn: "в Томилино"
   - idCity: 1078
     sCity: "Троицк, Московская область"
+    sCityIn: "в Троицке"
   - idCity: 2695
     sCity: "Троицкое, Московская область"
+    sCityIn: "в Троицком"
   - idCity: 1235
     sCity: "Тучково"
+    sCityIn: "в Тучково"
   - idCity: 2046
     sCity: "Уваровка"
+    sCityIn: "в Уваровке"
   - idCity: 1260
     sCity: "Удельная"
+    sCityIn: "в Удельной"
   - idCity: 1115
     sCity: "Фрязино"
+    sCityIn: "во Фрязино"
   - idCity: 1341
     sCity: "Фряново"
+    sCityIn: "во Фряново"
   - idCity: 1123
     sCity: "Химки"
+    sCityIn: "в Химках"
   - idCity: 1126
     sCity: "Хотьково"
+    sCityIn: "в Хотьково"
   - idCity: 1140
     sCity: "Черноголовка"
+    sCityIn: "в Черноголовке"
   - idCity: 2070
     sCity: "Черусти"
+    sCityIn: "в Черустях"
   - idCity: 1144
     sCity: "Чехов, Московская область"
+    sCityIn: "в Чехове"
   - idCity: 1154
     sCity: "Шатура"
+    sCityIn: "в Шатуре"
   - idCity: 2696
     sCity: "Шатурторф"
+    sCityIn: "в Шатурторфе"
   - idCity: 1361
     sCity: "Шаховская"
+    sCityIn: "в Шаховской"
   - idCity: 1171
     sCity: "Щербинка"
+    sCityIn: "в Щербинке"
   - idCity: 1170
     sCity: "Щёлково"
+    sCityIn: "в Щёлково"
   - idCity: 1174
     sCity: "Электрогорск"
+    sCityIn: "в Электрогорске"
   - idCity: 1175
     sCity: "Электросталь"
+    sCityIn: "в Электростали"
   - idCity: 1176
     sCity: "Электроугли"
+    sCityIn: "в Электроуглях"
   - idCity: 1179
     sCity: "Юбилейный, Московская область"
+    sCityIn: "в Юбилейном"
   - idCity: 1196
     sCity: "Яхрома"
+    sCityIn: "в Яхроме"

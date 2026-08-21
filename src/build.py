@@ -15,6 +15,7 @@ import sys
 from pathlib import Path
 
 from src.config import AppConfig, ConfigError, PlatformConfig, load_config, require_env
+from src.fanout import FanoutError, expand_records, load_cities
 from src.mappers import MAPPERS
 from src.sheets_client import SheetsAccessError, SheetsClient, rows_to_dicts
 from src.validators import ValidationFailure, validate_rows
@@ -87,6 +88,19 @@ def _build_one(
     validate_rows(platform.name, headers, rows, platform.required, platform.id_column)
 
     records = [record for _, record in rows]
+
+    # Расшивка по городам — после валидации (исходные строки уже проверены)
+    # и до маппера (маппер не должен знать про регионы).
+    fanout = platform.fanout
+    if fanout is not None and fanout.enabled:
+        cities = load_cities(PROJECT_ROOT / fanout.cities_file)
+        before = len(records)
+        records = expand_records(records, cities, fanout, platform.id_column)
+        plog.info(
+            "расшивка по городам: %d строк → %d объявлений (городов в справочнике: %d)",
+            before, len(records), len(cities),
+        )
+
     xml = mapper_cls(platform).build_xml(records)
 
     out_path = FEEDS_DIR / platform.output
@@ -123,7 +137,7 @@ def run(config_path: str) -> int:
     for platform in platforms:
         try:
             _build_one(platform, client, cfg.spreadsheet_id)
-        except (ValidationFailure, SheetsAccessError, ConfigError) as exc:
+        except (ValidationFailure, SheetsAccessError, ConfigError, FanoutError) as exc:
             # Ожидаемые, человекочитаемые ошибки — печатаем как есть.
             logging.getLogger(f"build[{platform.name}]").error("%s", exc)
             failures.append(platform.name)
