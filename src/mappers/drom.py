@@ -13,8 +13,17 @@ ref.xml и предпочтительнее: значения вне справ�
 id неизвестен, инструкция разрешает текстовые дубли (sMark, sModel, sCity,
 sTransmission …) — маппер эмитит и те, и другие, что укажете в колонках.
 
-Порядок тегов внутри Offer повторяет порядок таблицы полей в инструкции —
-на случай, если XSD автозакачки описывает Offer как xs:sequence.
+Порядок тегов внутри Offer взят из официального примера
+`docs/examples/drom_bulls_example.xml`, а не из таблицы полей инструкции:
+эти два документа Дрома противоречат друг другу (в примере Photos идёт
+перед Additional, а VIN стоит последним), значит строгой последовательности
+Дром не требует.
+
+Имена полей-справочников тоже берём из примера и ref.xml (idNewType,
+idFrameType, idColor, idDamagedType, sHaulRussiaType, sWhereabouts …), а
+короткие формы из таблицы инструкции (NewType, FrameType, Color,
+DamagedType, Whereabouts) поддерживаем как синонимы — какую колонку
+заполните, ту и получите в фиде.
 """
 
 from __future__ import annotations
@@ -34,40 +43,46 @@ from src.mappers.base import (
 # валидатор — марка/модель/город принимаются как id-, так и s-вариантом.
 _SIMPLE_FIELDS = [
     "idOffer",
-    "idMark", "idModel",
-    "sMark", "sModel",
+    # Марка/модель: либо id из ref.xml, либо название текстом.
+    "idMark", "sMark",
+    "idModel", "sModel",
     "idModification",
+    # Город + страна определяют раздел публикации («Продажа в России» /
+    # «Авто под заказ»), см. docs/drom-autoload.md.
     "idCountry",
     "idCity", "sCity",
     "YearOfMade",
-    "VIN",
     "Price",
     "idCurrency",
-    "NewType",
+    # Новый/с пробегом. В ref.xml и примере — idNewType/sNewType,
+    # в таблице инструкции — NewType. Поддерживаем все три.
+    "idNewType", "sNewType", "NewType",
     "Volume",
-    "FrameType",
-    "Color",
+    "Power",
+    "idFrameType", "sFrameType", "FrameType",
+    "idColor", "sColor", "Color",
     "idTransmission", "sTransmission",
     "idEngineType", "sEngineType",
     "idHybridType", "sHybridType",
     "idGbo", "sGbo",
     "idDriveType", "sDriveType",
     "idWheelType", "sWheelType",
-    "Haul",
-    "idHaulRussiaType",
-    "NumberOfOwners",
     "sComplectation", "idComplectation",
-    "Additional",  # описание ТС; здесь же ссылка на видео с YouTube
+    "Haul",
+    "idHaulRussiaType", "sHaulRussiaType",
+    "NumberOfOwners",
+    "idCertProgram",
 ]
 
-# Поля, идущие в инструкции ПОСЛЕ секции Photos.
+# Поля, идущие в примере ПОСЛЕ секции Photos. VIN — последним, как там же.
 _TAIL_FIELDS = [
+    "Additional",     # описание ТС; здесь же ссылка на видео с YouTube
     "Phone",          # не более 20 символов
-    "Whereabouts",    # 0 в наличии / 1 в пути / 2 под заказ
-    "Power",
-    "idCertProgram",
-    "DamagedType",    # 0 небитый / 1 битый или не на ходу
+    "Phone2",         # второй телефон — есть в примере, в таблице полей нет
+    "Whereabouts", "sWhereabouts",   # 0 в наличии / 1 в пути / 2 под заказ
+    "idDamagedType", "sDamagedType", "DamagedType",  # 0 небитый / 1 битый
     "SOR",            # номер СТС для авто с пробегом, 10 символов
+    "VIN",            # ключ обновления объявления наравне с idOffer
 ]
 
 _PHOTOS_FIELD = "Photos"

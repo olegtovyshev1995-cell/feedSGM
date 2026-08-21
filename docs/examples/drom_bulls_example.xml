@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<avtoxml>
+
+    <Offers>
+        <Offer>
+            <idOffer>1</idOffer>
+            <idMark>9</idMark>
+            <idModel>16</idModel>
+            <idCity>4314</idCity>
+            <YearOfMade>2018</YearOfMade>
+            <Price>2500016</Price>
+            <idNewType>1</idNewType>
+            <Volume>2998</Volume>
+            <Power>180</Power>
+            <sFrameType>Седан</sFrameType>
+            <idColor>1</idColor>
+            <idTransmission>1</idTransmission>
+            <idEngineType>1</idEngineType>
+            <idDriveType>1</idDriveType>
+            <idWheelType>2</idWheelType>
+            <Haul>0</Haul>
+            <idHaulRussiaType>1</idHaulRussiaType>
+            <Photos PhotoDir="" PhotoMain="https://s.auto.drom.ru/i24220/c/photos/fullsize/toyota/camry/toyota_camry_803542.jpg">
+                <Photo>https://s.auto.drom.ru/i24220/c/photos/fullsize/toyota/camry/toyota_camry_803612.jpg</Photo>
+            </Photos>
+            <VIN>QWERTYUIOPAS00001</VIN>
+        </Offer>
+
+        <Offer>
+            <idOffer>2</idOffer>
+            <sMark>Toyota</sMark>
+            <sModel>Camry</sModel>
+            <sCity>Волчанец</sCity>
+            <YearOfMade>2018</YearOfMade>
+            <Price>2500016</Price>
+            <sNewType>да</sNewType>
+            <Volume>2998</Volume>
+            <Power>180</Power>
+            <idFrameType>10</idFrameType>
+            <sColor>черный</sColor>
+            <sTransmission>механическая (MT)</sTransmission>
+            <sEngineType>бензин</sEngineType>
+            <sDriveType>задний</sDriveType>
+            <sWheelType>левый</sWheelType>
+            <sComplectation>3.5 AT Executive Safety</sComplectation>
+            <Haul>0</Haul>
+            <sHaulRussiaType>да</sHaulRussiaType>
+            <Photos PhotoDir="https://s.auto.drom.ru/i24220/c/photos/fullsize/toyota/camry/" PhotoMain="toyota_camry_803610.jpg">
+                <Photo>toyota_camry_803614.jpg</Photo>
+                <Photo>toyota_camry_803609.jpg</Photo>
+                <Photo>toyota_camry_803615.jpg</Photo>
+                <Photo>toyota_camry_803616.jpg</Photo>
+                <Photo>toyota_camry_803618.jpg</Photo>
+            </Photos>
+            <Additional>
+                Toyota Camry XV70
+                2018 года выпуска
+                Комплектация Элеганс Safety
+                Цвет Белый перламутр
+                Кожаный салон (Чёрный)
+                Электропривод сидений.
+                Адаптивный круиз контроль.
+                Система контроля полосы движения.
+                Система распознования знаков.
+                Система контроля давления в шинах.
+                Система предотвращения столкновения.
+                Светодиодные фары с адаптивном освещением.
+                Подогрев передних и задних сидений.
+                Безключевой доступ.
+                Электроподогрев лобового стекла.
+                Сенсорный 7" дисплей.
+                Камера заднего вида.
+                Светодиодные фары с адаптивном освещением.
+            </Additional>
+            <Phone>+7(800)000-00-01</Phone>
+            <Phone2>+7(800)000-00-02</Phone2>
+            <sWhereabouts>в наличии</sWhereabouts>
+            <VIN>QWERTYUIOPAS00002</VIN>
+        </Offer>
+    </Offers>
+
+    <Discounts>
+        <Discount>
+            <idDiscount>1</idDiscount>
+            <VIN>QWERTYUIOPAS00001</VIN>
+            <discount>3</discount>
+            <idDiscountType>1</idDiscountType>
+            <name>Trade-In</name>
+            <description>Скидка 3% при покупке по программе</description>
+        </Discount>
+
+        <Discount>
+            <idDiscount>2</idDiscount>
+            <VIN>QWERTYUIOPAS00001</VIN>
+            <discount>100000</discount>
+            <idDiscountType>2</idDiscountType>
+            <name>Trade-NOT-In</name>
+            <description>Скидка 100000 руб. при покупке не по программе</description>
+        </Discount>
+
+        <Discount>
+            <idDiscount>3</idDiscount>
+            <VIN>QWERTYUIOPAS00002</VIN>
+            <discount>180000</discount>
+            <sDiscountType>руб.</sDiscountType>
+            <name>Скидка за улыбку</name>
+            <description>Скидка самым приятным и дружелюбным гостям автосалона</description>
+        </Discount>
+
+        <MaxDiscount>
+            <idMaxDiscount>4</idMaxDiscount>
+            <maxDiscount>400000</maxDiscount>
+            <VIN>QWERTYUIOPAS00002</VIN>
+            <idDiscountType>2</idDiscountType>
+        </MaxDiscount>
+    </Discounts>
+</avtoxml>

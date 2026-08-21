@@ -165,6 +165,61 @@ def test_drom_mapper_produces_valid_xml_with_photos():
     assert "<lastBuildDate>2026-08-10T06:00:00+0000</lastBuildDate>" in xml
 
 
+def test_drom_offer_matches_official_example_layout():
+    """Состав и порядок тегов — как в docs/examples/drom_bulls_example.xml.
+
+    Официальный пример Дрома расходится с таблицей полей инструкции:
+    Photos идёт перед Additional, VIN — последним тегом Offer, а поля
+    справочников называются idNewType/idFrameType/idColor/sWhereabouts,
+    а не NewType/FrameType/Color/Whereabouts. Ловим регресс по обоим.
+    """
+    mapper = MAPPERS["drom"](_pc("drom", "idOffer", []))
+    mapper.build_date = "2026-08-10T06:00:00+0000"
+    row = {
+        "idOffer": "SGM-1", "sMark": "Toyota", "sModel": "Camry",
+        "idCity": "663", "sCity": "Красногорск, Московская область",
+        "YearOfMade": "2018", "Price": "2500016", "idNewType": "0",
+        "Volume": "2494", "Power": "181", "idFrameType": "10",
+        "idColor": "12", "idTransmission": "2", "idEngineType": "1",
+        "idDriveType": "1", "idWheelType": "2", "Haul": "78000",
+        "idHaulRussiaType": "1", "PhotoDir": "https://i.ibb.co/abc/",
+        "PhotoMain": "main.jpg", "Photos": "a.jpg|b.jpg",
+        "Additional": "описание", "Phone": "+7(800)000-00-01",
+        "Phone2": "+7(800)000-00-02", "sWhereabouts": "в наличии",
+        "idDamagedType": "0", "VIN": "XW7BF4FK00S123456",
+    }
+    xml = mapper.build_xml([row])
+    offer = parseString(xml).getElementsByTagName("Offer")[0]
+    tags = [n.tagName for n in offer.childNodes if n.nodeType == n.ELEMENT_NODE]
+
+    assert tags[0] == "idOffer"
+    assert tags[-1] == "VIN"
+    assert tags.index("Photos") < tags.index("Additional")
+    assert tags.index("Phone") < tags.index("Phone2")
+    # короткие синонимы из таблицы инструкции не подмешиваются
+    for legacy in ("NewType", "FrameType", "Color", "DamagedType"):
+        assert legacy not in tags
+
+    photos = offer.getElementsByTagName("Photos")[0]
+    assert photos.getAttribute("PhotoDir") == "https://i.ibb.co/abc/"
+    assert photos.getAttribute("PhotoMain") == "main.jpg"
+
+
+def test_drom_supports_legacy_short_field_names():
+    """Таблица инструкции разрешает NewType/FrameType/Color/Whereabouts."""
+    mapper = MAPPERS["drom"](_pc("drom", "idOffer", []))
+    mapper.build_date = "2026-08-10T06:00:00+0000"
+    row = {
+        "idOffer": "SGM-2", "sMark": "Ford", "sModel": "Ranger",
+        "sCity": "Химки", "YearOfMade": "2026", "Price": "8269329",
+        "VIN": "MPBAMFE60SX697372", "NewType": "1", "FrameType": "12",
+        "Color": "12", "Whereabouts": "0", "DamagedType": "0",
+    }
+    xml = mapper.build_xml([row])
+    for tag in ("NewType", "FrameType", "Color", "Whereabouts", "DamagedType"):
+        assert f"<{tag}>" in xml
+
+
 def test_avito_skips_empty_optional_fields():
     # Generation/Modification пустые — тегов быть не должно.
     xml = MAPPERS["avito"](_pc("avito", "Id", AVITO_REQ)).build_xml(

@@ -179,6 +179,34 @@ XSD для валидации: `www.drom.ru/autoload/files/drom_autoload.xsd`.
 Города в справочнике уникальны по названию; неоднозначные названия
 записаны с регионом — `Красногорск, Московская область`.
 
+## Официальный пример vs таблица полей — расхождения
+
+Пример Дрома лежит в `docs/examples/drom_bulls_example.xml`. Он расходится
+с таблицей полей инструкции; **источником правды по именам считаем пример
+и `ref.xml`**, короткие формы из таблицы поддерживаем как синонимы.
+
+| В таблице инструкции | В примере и в `ref.xml` |
+|---|---|
+| `NewType` | `idNewType` / `sNewType` |
+| `FrameType` | `idFrameType` / `sFrameType` |
+| `Color` | `idColor` / `sColor` |
+| `DamagedType` | `idDamagedType` / `sDamagedType` |
+| `Whereabouts` | `Whereabouts` / `sWhereabouts` |
+| `idHaulRussiaType` | `idHaulRussiaType` / `sHaulRussiaType` |
+| — | **`Phone2`** — второй телефон, в таблице полей отсутствует |
+
+Прочее из примера:
+
+- **Порядок тегов внутри `Offer` не строгий:** в примере `Photos` идёт
+  *перед* `Additional`, а `VIN` — последним тегом. Таблица инструкции даёт
+  другой порядок. Значит `xs:sequence` можно не соблюдать.
+- **`lastBuildDate` в примере отсутствует** — секция необязательная.
+- `PhotoDir=""` + абсолютные URL в `PhotoMain`/`Photo` работают наравне с
+  «префикс + имена файлов».
+- В `Discounts` тип скидки тоже двойной: `idDiscountType` или
+  `sDiscountType` (`руб.` / `%`). У `MaxDiscount` название не задаётся.
+- Для новых авто (`idNewType` = 1) в примере `Haul` = 0.
+
 ## Что важно для «расшивки» по региону
 
 `VIN` — обязательное поле **и** ключ обновления. Несколько `Offer` с
