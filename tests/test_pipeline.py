@@ -142,20 +142,72 @@ def test_avito_mapper_produces_valid_xml_with_cdata_and_images():
     assert xml.count("<Image ") == 2
 
 
-def test_autoru_mapper_produces_valid_xml():
+def _autoru_new_row(**kw) -> dict[str, str]:
     row = {
-        "unique_id": "SGM-1", "mark_id": "Ford", "folder_id": "Ranger Raptor",
-        "modification_id": "2.0d AT (210 л.с.) 4WD", "body_type": "Пикап Double Cab",
-        "year": "2026", "color": "серый", "price": "8269329", "currency": "RUR",
-        "run": "0", "vin": "MPBAMFE60SX697372", "availability": "в наличии",
-        "custom": "растаможен", "state": "новый", "description": "Stop & Go — 4×4",
+        "mark_id": "Ford", "folder_id": "Ranger", "complectation_name": "Raptor",
+        "engine_volume": "1996", "engine_power": "210 л.с.", "engine_type": "Дизель",
+        "gearbox": "Автоматическая", "drive": "Полный",
+        "body_type": "Пикап", "wheel": "левый", "color": "Серый", "metallic": "да",
+        "availability": "На заказ", "custom": "Растаможен",
+        "owners_number": "Не было владельцев", "year": "2026", "doors_count": "4",
+        "price": "8300000", "currency": "RUR", "vin": "MPBAMFE60SX697372",
+        "with_nds": "true", "description": "Stop & Go — 4×4",
         "images": "https://s.ru/1.jpg|https://s.ru/2.jpg",
+        "delivery_info": "МО, Балашиха|МО, Химки",
     }
-    xml = MAPPERS["autoru"](_pc("autoru", "unique_id", [])).build_xml([row])
+    row.update(kw)
+    return row
+
+
+def test_autoru_mapper_produces_valid_xml():
+    xml = MAPPERS["autoru"](_pc("autoru", "unique_id", [])).build_xml([_autoru_new_row()])
     dom = parseString(xml)
     assert dom.getElementsByTagName("cars")
+    assert dom.getElementsByTagName("data")
     assert xml.count("<image>") == 2
     assert "Stop &amp; Go" in xml  # амперсанд экранирован
+
+
+def test_autoru_engine_params_instead_of_modification_id():
+    """5 параметров двигателя выводятся, когда нет modification_id."""
+    xml = MAPPERS["autoru"](_pc("autoru", "unique_id", [])).build_xml([_autoru_new_row()])
+    for tag in ("engine_volume", "engine_power", "engine_type", "gearbox", "drive"):
+        assert f"<{tag}>" in xml
+    assert "<modification_id>" not in xml
+
+
+def test_autoru_delivery_info_and_new_section_layout():
+    car = parseString(
+        MAPPERS["autoru"](_pc("autoru", "unique_id", [])).build_xml([_autoru_new_row()])
+    ).getElementsByTagName("car")[0]
+    tags = [n.tagName for n in car.childNodes if n.nodeType == n.ELEMENT_NODE]
+    # адреса доставки собрались в секцию
+    assert car.getElementsByTagName("delivery_info")
+    assert len(car.getElementsByTagName("delivery")) == 2
+    assert len(car.getElementsByTagName("address")) == 2
+    # раздел «Новые»: не должно быть полей «С пробегом»
+    for legacy in ("run", "state", "registry_year", "sts", "warranty_expire"):
+        assert legacy not in tags
+    # выдуманные теги старого маппера ушли
+    for junk in ("haggle", "exchange", "url", "pts"):
+        assert f"<{junk}>" not in car.toxml() or junk == "exchange"
+
+
+def test_autoru_badges_capped_at_three():
+    xml = MAPPERS["autoru"](_pc("autoru", "unique_id", [])).build_xml(
+        [_autoru_new_row(badges="a|b|c|d|e")]
+    )
+    assert xml.count("<badge>") == 3
+
+
+def test_autoru_contact_info_from_columns():
+    xml = MAPPERS["autoru"](_pc("autoru", "unique_id", [])).build_xml(
+        [_autoru_new_row(contact_name="Иван", contact_phone="80001112233",
+                         contact_time="09:00-21:00")]
+    )
+    assert "<contact_info>" in xml
+    assert "<name>Иван</name>" in xml
+    assert "<phone>80001112233</phone>" in xml
 
 
 def test_drom_mapper_produces_valid_xml_with_photos():

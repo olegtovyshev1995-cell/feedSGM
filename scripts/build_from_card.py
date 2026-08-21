@@ -1,13 +1,17 @@
 #!/usr/bin/env python3
-"""Сборка фида Drom из локальной карточки авто, без Google Sheets.
+"""Сборка фида из локальной карточки авто, без Google Sheets.
 
-Нужен, когда карточка одна и она приходит «руками» (из скриншотов,
-из кабинета), а таблица ещё не заполнена. Логика та же, что в основном
-пайплайне: карточка → расшивка по городам → маппер → атомарная запись.
+Нужен, когда карточка одна и приходит «руками» (из скриншотов, из
+кабинета), а таблица ещё не заполнена. Логика та же, что в основном
+пайплайне: карточка → (расшивка по городам) → маппер → атомарная запись.
+
+Площадка берётся из ключа `platform` карточки (drom | autoru); по
+умолчанию drom. Обязательные поля и файл фида берутся из
+config/config.example.yaml для этой площадки.
 
     python -m scripts.build_from_card data/cards/example.yaml
-    python -m scripts.build_from_card data/cards/example.yaml --out feeds/drom.xml
-    python -m scripts.build_from_card data/cards/example.yaml --limit 3 --stdout
+    python -m scripts.build_from_card data/cards/ford-...-autoru.yaml --stdout
+    python -m scripts.build_from_card data/cards/example.yaml --limit 3
 """
 
 from __future__ import annotations
@@ -19,27 +23,29 @@ from pathlib import Path
 import yaml
 
 from src.build import PROJECT_ROOT, atomic_write
-from src.config import FanoutSettings, PlatformConfig
+from src.config import FanoutSettings, PlatformConfig, load_config
 from src.fanout import FanoutError, expand_records, load_cities
 from src.mappers import MAPPERS
 
-# Обязательные поля Offer: марка/модель/город принимаются в id- или s-виде.
-_REQUIRED_ANY = [
-    ("idOffer",),
-    ("idMark", "sMark"),
-    ("idModel", "sModel"),
-    ("idCity", "sCity"),
-    ("YearOfMade",),
-    ("VIN",),
-    ("Price",),
-]
+_EXAMPLE_CONFIG = "config/config.example.yaml"
+
+# Группы обязательных полей, где годится любой из вариантов (id- или
+# текстовая форма). Проверяются поверх плоского списка required из конфига.
+_ANY_OF = {
+    "drom": [("idMark", "sMark"), ("idModel", "sModel"), ("idCity", "sCity")],
+    "autoru": [
+        ("modification_id", "engine_type"),  # двигатель: код ИЛИ 5 параметров
+        ("vin", "unique_id"),                # идентификатор: VIN ИЛИ unique_id
+    ],
+}
 
 
-def load_card(path: Path) -> tuple[dict[str, str], FanoutSettings | None]:
+def load_card(path: Path) -> tuple[str, dict[str, str], FanoutSettings | None]:
     if not path.is_file():
         raise SystemExit(f"карточка не найдена: {path}")
 
     raw = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    platform = str(raw.get("platform", "drom")).strip() or "drom"
     offer = raw.get("offer")
     if not isinstance(offer, dict):
         raise SystemExit(f"{path}: ожидался раздел 'offer' с полями объявления")
@@ -49,22 +55,34 @@ def load_card(path: Path) -> tuple[dict[str, str], FanoutSettings | None]:
 
     fanout_raw = raw.get("fanout")
     fanout = FanoutSettings(**fanout_raw) if isinstance(fanout_raw, dict) else None
-    return record, fanout
+    return platform, record, fanout
 
 
-def check_required(record: dict[str, str]) -> None:
-    missing = [
+def platform_config(platform: str) -> PlatformConfig:
+    """Берёт required / id_column / output площадки из example-конфига."""
+    cfg = load_config(_EXAMPLE_CONFIG)
+    for p in cfg.platforms:
+        if p.name == platform:
+            return p
+    known = ", ".join(pc.name for pc in cfg.platforms)
+    raise SystemExit(f"неизвестная площадка {platform!r}; в конфиге есть: {known}")
+
+
+def check_required(platform: str, record: dict[str, str], required: list[str]) -> None:
+    any_of = _ANY_OF.get(platform, [])
+    # Плоские required, кроме тех, что покрыты группами «любой из».
+    grouped = {f for group in any_of for f in group}
+    missing = [f for f in required if f not in grouped and not record.get(f, "").strip()]
+    missing += [
         " / ".join(group)
-        for group in _REQUIRED_ANY
+        for group in any_of
         if not any(record.get(f, "").strip() for f in group)
     ]
     if missing:
-        raise SystemExit(
-            "не заполнены обязательные поля Offer: " + ", ".join(missing)
-        )
+        raise SystemExit("не заполнены обязательные поля: " + ", ".join(missing))
 
 
-def check_photos(record: dict[str, str]) -> list[str]:
+def check_photos(record: dict[str, str]) -> list[str]:  # noqa: D401
     """Возвращает список ссылок, которые Дром не примет как фотографию.
 
     Инструкция требует файлы с расширением .jpg/.jpeg. Ссылка-страница
@@ -82,15 +100,17 @@ def check_photos(record: dict[str, str]) -> list[str]:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("card", help="YAML-карточка авто")
-    parser.add_argument("--out", default="feeds/drom.xml", help="куда писать фид")
+    parser.add_argument("--out", default=None,
+                        help="куда писать фид (по умолчанию feeds/<output площадки>)")
     parser.add_argument("--limit", type=int, default=None,
                         help="ограничить число городов (перебивает карточку)")
     parser.add_argument("--stdout", action="store_true",
                         help="напечатать фид, не записывая файл")
     args = parser.parse_args(argv)
 
-    record, fanout = load_card(Path(args.card))
-    check_required(record)
+    platform, record, fanout = load_card(Path(args.card))
+    pc = platform_config(platform)
+    check_required(platform, record, pc.required)
 
     bad_photos = check_photos(record)
     if bad_photos:
@@ -107,20 +127,17 @@ def main(argv: list[str] | None = None) -> int:
         if args.limit:
             fanout = fanout.model_copy(update={"limit": args.limit})
         cities = load_cities(PROJECT_ROOT / fanout.cities_file)
-        records = expand_records(records, cities, fanout, "idOffer")
+        records = expand_records(records, cities, fanout, pc.id_column)
 
-    platform = PlatformConfig(
-        name="drom", sheet="-", header_row=1, data_start_row=2,
-        id_column="idOffer", output="drom.xml",
-    )
-    xml = MAPPERS["drom"](platform).build_xml(records)
+    xml = MAPPERS[platform](pc).build_xml(records)
 
     if args.stdout:
         sys.stdout.write(xml)
     else:
-        out = PROJECT_ROOT / args.out
+        rel = args.out or f"feeds/{pc.output}"
+        out = PROJECT_ROOT / rel
         atomic_write(out, xml)
-        print(f"{args.out}: {len(records)} объявлений, "
+        print(f"{rel}: {len(records)} объявлений, "
               f"{len(xml.encode('utf-8'))} байт")
     return 0
 

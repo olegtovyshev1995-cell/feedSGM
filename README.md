@@ -14,7 +14,7 @@ Google Sheets → валидация → мапперы площадок → XML
 | Площадка | Лист-источник | Формат фида | Файл фида | Ключ обновления |
 |---|---|---|---|---|
 | **Avito** (автозагрузка) | `Автозагрузка_авто` | `<Ads><Ad>` | `feeds/avito.xml` | стабильный `Id` |
-| **Auto.ru** (легковые) | `Фид (легковые)` | `<data><cars><car>` | `feeds/autoru.xml` | `mark+model+modif+year+color+(VIN/unique_id)` |
+| **Auto.ru** (легковые) | `Фид (легковые)` | `<data><cars><car>` | `feeds/autoru.xml` | `mark+model+tech_param_id+year+color+(VIN/unique_id)` |
 | **Drom** (легковые) | `Drom_легковые` | `<avtoxml><Offers><Offer>` | `feeds/drom.xml` | `VIN` или `idOffer` |
 
 ---
@@ -40,6 +40,10 @@ docs/drom-autoload.md      # конспект инструкции автоза�
 data/refs/drom_ref.xml     # официальный справочник Drom (марки/модели/города)
 config/drom_mo_cities.yaml # города МО с idCity — генерится скриптом
 scripts/gen_drom_mo_cities.py
+
+docs/autoru-feed.md        # конспект справки Авто.ру по фиду
+docs/examples/autoru_*.html # офлайн-копии официальной справки Авто.ру
+data/cards/ford-ranger-raptor-2026-autoru.yaml
 ```
 
 **Поток данных:** `sheets_client` (данные) → `validators` + `mappers` (логика) → `build.py` (связывание).
@@ -178,6 +182,21 @@ python -m scripts.resolve_ibb_links data/cards/ibb_links.txt \
 Скрипт открывает каждую страницу, достаёт прямую ссылку из `og:image` и
 подставляет их в поле `Photos` карточки, сохраняя порядок. Запускать нужно
 там, где ibb.co доступен, — в среде разработки этот домен закрыт прокси.
+
+### Особенность Auto.ru: региона нет в фиде
+
+В фиде Авто.ру **нет поля «город объявления»** — регион берётся из
+дилерского салона в кабинете, а `poi_id` (адрес осмотра, отличный от
+салона) включается только через поддержку Авто.ру. Поэтому «расшивку» из
+Drom (одна машина → 129 объявлений по городам) на Авто.ру повторить нельзя.
+Легальный аналог — **одно объявление + `delivery_info`** (до 10 адресов
+доставки). Карточка `data/cards/ford-ranger-raptor-2026-autoru.yaml` собрана
+именно так. Полная схема Авто.ру — в `docs/autoru-feed.md`.
+
+Двигатель в этой карточке задан **пятью параметрами** (`engine_volume`,
+`engine_power`, `engine_type`, `gearbox`, `drive`) вместо каталожного
+`modification_id` — так не нужно угадывать точный код модификации из
+каталога Авто.ру (справка разрешает одно из двух).
 
 ### Справочник городов
 

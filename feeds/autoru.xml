@@ -1,31 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
 <data>
   <cars>
-  <car>
-    <unique_id>SGM-RAPTOR-0001</unique_id>
-    <mark_id>Ford</mark_id>
-    <folder_id>Ranger Raptor</folder_id>
-    <modification_id>2.0d AT (210 л.с.) 4WD</modification_id>
-    <body_type>Пикап Double Cab</body_type>
-    <year>2026</year>
-    <color>серый</color>
-    <price>8269329</price>
-    <currency>RUR</currency>
-    <run>0</run>
-    <vin>MPBAMFE60SX697372</vin>
-    <availability>в наличии</availability>
-    <custom>растаможен</custom>
-    <state>новый</state>
-    <owners_number>Не было владельцев</owners_number>
-    <pts>оригинал</pts>
-    <wheel>Левый</wheel>
-    <engine_type>дизель</engine_type>
-    <drive>полный</drive>
-    <haggle>возможен</haggle>
-    <exchange>Не интересует</exchange>
-    <description>Ford Ranger Raptor 2.0 4×4 · 2026
-Новый, 0 км. Stop &amp; Go.</description>
-    <images><image>https://site.ru/raptor/1.jpg</image><image>https://site.ru/raptor/2.jpg</image></images>
-  </car>
+    <car>
+      <mark_id>Ford</mark_id>
+      <folder_id>Ranger</folder_id>
+      <engine_volume>1996</engine_volume>
+      <engine_power>210 л.с.</engine_power>
+      <engine_type>Дизель</engine_type>
+      <gearbox>Автоматическая</gearbox>
+      <drive>Полный</drive>
+      <complectation_name>Raptor</complectation_name>
+      <body_type>Пикап</body_type>
+      <wheel>левый</wheel>
+      <color>Серый</color>
+      <metallic>да</metallic>
+      <availability>На заказ</availability>
+      <custom>Растаможен</custom>
+      <owners_number>Не было владельцев</owners_number>
+      <year>2026</year>
+      <doors_count>4</doors_count>
+      <price>8300000</price>
+      <currency>RUR</currency>
+      <vin>MPBAMFE60SX697372</vin>
+      <description>Ford Ranger Raptor 2.0 4×4, 2026 — новый, под заказ.
+Доставка по всей России, в том числе по городам Московской области.
+
+Дизель 2.0 л битурбо, автомат 10 передач, полный привод 4×4.
+Terrain Management — 7 режимов движения. Шины 285/70 R17,
+легкосплавные диски. Пикап, двойная кабина: 4 двери, 5 мест,
+левый руль. Сборка Таиланд.
+
+В салоне: экран 12″, приборная панель 12,4″, SYNC 4A, беспроводные
+CarPlay и Android Auto, сиденья Raptor с электрорегулировкой,
+двухзонный климат, адаптивный круиз Stop &amp; Go, беспроводная зарядка,
+розетки 12V и 230V, USB в двух рядах.
+
+Безопасность: 7 подушек, ISOFIX, автоторможение с распознаванием
+пешеходов, контроль слепых зон, камеры 360°, парктроники, автопилот
+парковки, ABS, ESP, HDC, TPMS.
+
+Снаружи: матричные LED-фары с адаптивным дальним, C-образные ходовые
+огни, противотуманки, арки Raptor, защита днища, bedliner с розетками,
+буксировочные крюки.
+
+Цвета под заказ: белый, синий, серый, оранжевый, чёрный.
+
+Продавец — SGM Auto Group. Гарантия 1 год. Цена 8 300 000 ₽ с НДС.
+Полный пакет документов для юрлиц. Позвоните — назовём свободные цвета
+и сроки поставки, рассчитаем доставку в ваш город.</description>
+      <extras>Светодиодные фары, Противотуманные фары, Система управления дальним светом, Легкосплавные диски, Диски 17, Климат-контроль 2-зонный, Адаптивный круиз-контроль, Система выбора режима движения, Камера 360°, Парктроник задний, Парктроник передний, Система автоматической парковки, Проекционный дисплей, Электронная приборная панель, Запуск двигателя с кнопки, Система доступа без ключа, Беспроводная зарядка для смартфона, Розетка 12V, Розетка 220V, USB, Bluetooth, CarPlay, Android Auto, Кожа (Материал салона), Электрорегулировка передних сидений, Подогрев передних сидений, Подогрев задних сидений, Отделка кожей рулевого колеса, Антиблокировочная система (ABS), Система стабилизации (ESP), Система помощи при спуске, Система помощи при старте в гору (HSA), Система контроля слепых зон, Система предотвращения столкновения, Система распознавания дорожных знаков, Датчик давления в шинах, Подушка безопасности водителя, Подушка безопасности пассажира, Подушки безопасности боковые, Подушки безопасности оконные (шторки), Крепление детского кресла (задний ряд) ISOFIX, Фаркоп, Защита картера</extras>
+      <images>
+        <image>https://i.ibb.co/hRd991F0/Frame-49.jpg</image>
+        <image>https://i.ibb.co/KpdHRmZ5/Frame-50.jpg</image>
+        <image>https://i.ibb.co/NgCK6t79/Frame-51.jpg</image>
+        <image>https://i.ibb.co/0Nyp8G2/Frame-52.jpg</image>
+        <image>https://i.ibb.co/LXV4zQf7/Frame-53.jpg</image>
+        <image>https://i.ibb.co/4R83F7K9/Frame-54.jpg</image>
+        <image>https://i.ibb.co/35db8XGt/Frame-55.jpg</image>
+        <image>https://i.ibb.co/d4D1FM0W/Frame-56.jpg</image>
+        <image>https://i.ibb.co/XrpQpK0c/Frame-57.jpg</image>
+        <image>https://i.ibb.co/bRNVk4g6/Frame-58.jpg</image>
+        <image>https://i.ibb.co/QFnzR9cW/Frame-59.jpg</image>
+        <image>https://i.ibb.co/0pJcBTQY/Frame-60.jpg</image>
+        <image>https://i.ibb.co/Mx2ncfnJ/Frame-61.jpg</image>
+        <image>https://i.ibb.co/jP2QVxdg/Frame-62.jpg</image>
+        <image>https://i.ibb.co/pBkz71c9/Frame-63.jpg</image>
+        <image>https://i.ibb.co/s9S6dHTx/Frame-64.jpg</image>
+        <image>https://i.ibb.co/BVwhb9f7/Frame-65.jpg</image>
+        <image>https://i.ibb.co/2YPRJ3G6/Frame-66.jpg</image>
+        <image>https://i.ibb.co/671PHzNG/Frame-67.jpg</image>
+        <image>https://i.ibb.co/zHS8Hzb7/Frame-68.jpg</image>
+        <image>https://i.ibb.co/hxG0ywfs/Frame-69.jpg</image>
+        <image>https://i.ibb.co/8gJqSg1s/Frame-70.jpg</image>
+        <image>https://i.ibb.co/JR1Bpy5z/Frame-71.jpg</image>
+        <image>https://i.ibb.co/HDxdJDBg/Frame-72.jpg</image>
+        <image>https://i.ibb.co/0VMbrGCr/Frame-73.jpg</image>
+        <image>https://i.ibb.co/60BpDDwT/Frame-74.jpg</image>
+        <image>https://i.ibb.co/fdt6w2qP/Frame-75.jpg</image>
+        <image>https://i.ibb.co/dw5rLM0S/Frame-76.jpg</image>
+        <image>https://i.ibb.co/wFsdZ8rZ/Frame-77.jpg</image>
+        <image>https://i.ibb.co/39ZwFBx0/Frame-78.jpg</image>
+      </images>
+      <delivery_info>
+        <delivery>
+          <address>Московская область, Балашиха</address>
+        </delivery>
+        <delivery>
+          <address>Московская область, Химки</address>
+        </delivery>
+        <delivery>
+          <address>Московская область, Подольск</address>
+        </delivery>
+        <delivery>
+          <address>Московская область, Мытищи</address>
+        </delivery>
+        <delivery>
+          <address>Московская область, Королёв</address>
+        </delivery>
+        <delivery>
+          <address>Московская область, Люберцы</address>
+        </delivery>
+        <delivery>
+          <address>Московская область, Красногорск</address>
+        </delivery>
+        <delivery>
+          <address>Московская область, Одинцово</address>
+        </delivery>
+        <delivery>
+          <address>Московская область, Домодедово</address>
+        </delivery>
+        <delivery>
+          <address>Московская область, Электросталь</address>
+        </delivery>
+      </delivery_info>
+      <pts>Оригинал</pts>
+      <with_nds>true</with_nds>
+    </car>
   </cars>
 </data>

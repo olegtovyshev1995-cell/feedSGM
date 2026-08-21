@@ -97,17 +97,22 @@ platforms:
     data_start_row: 4           # строка 3 — пример, данные с 4-й
     id_column: "unique_id"
     output: "autoru.xml"
+    # Обязательные по справке Авто.ру (docs/autoru-feed.md). Модификацию
+    # можно задать либо modification_id, либо 5 параметрами двигателя;
+    # идентификатор — VIN либо unique_id. Эти пары проверяет build_from_card
+    # (см. _ANY_OF), поэтому в required их нет.
     required:
-      - unique_id
       - mark_id
       - folder_id
-      - modification_id
       - body_type
-      - year
+      - wheel
       - color
-      - price
-      - currency
       - availability
+      - custom
+      - year
+      - doors_count
+      - currency
+      - price
       - images
 
   # ── Drom (легковые автомобили) ───────────────────────────────────
