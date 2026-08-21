@@ -1,0 +1,264 @@
+# Города Московской области для расшивки объявлений на Drom.
+# СГЕНЕРИРОВАНО: python -m scripts.gen_drom_mo_cities — не править руками.
+# Источник: data/refs/drom_ref.xml (секция <Cities>).
+# Всего городов: 129.
+
+cities:
+  - idCity: 299
+    sCity: "Апрелевка"
+  - idCity: 2651
+    sCity: "Архангельское, Московская область"
+  - idCity: 325
+    sCity: "Балашиха"
+  - idCity: 1232
+    sCity: "Белоозёрский"
+  - idCity: 2057
+    sCity: "Богородское, Московская область"
+  - idCity: 2689
+    sCity: "Большевик, Московская область"
+  - idCity: 376
+    sCity: "Бронницы"
+  - idCity: 1369
+    sCity: "Быково, Московская область"
+  - idCity: 392
+    sCity: "Верея"
+  - idCity: 403
+    sCity: "Видное"
+  - idCity: 1203
+    sCity: "Власиха, Московская область"
+  - idCity: 410
+    sCity: "Волоколамск"
+  - idCity: 417
+    sCity: "Воскресенск"
+  - idCity: 2656
+    sCity: "Воскресенское, Московская область"
+  - idCity: 2034
+    sCity: "Восход, Московская область"
+  - idCity: 423
+    sCity: "Высоковск"
+  - idCity: 441
+    sCity: "Голицыно"
+  - idCity: 470
+    sCity: "Дедовск"
+  - idCity: 475
+    sCity: "Дзержинский"
+  - idCity: 479
+    sCity: "Дмитров"
+  - idCity: 261
+    sCity: "Долгопрудный"
+  - idCity: 484
+    sCity: "Домодедово"
+  - idCity: 488
+    sCity: "Дрезна"
+  - idCity: 2679
+    sCity: "Дружба, Московская область"
+  - idCity: 41
+    sCity: "Дубна, Московская область"
+  - idCity: 493
+    sCity: "Егорьевск"
+  - idCity: 506
+    sCity: "Железнодорожный, Московская область"
+  - idCity: 513
+    sCity: "Жуковский"
+  - idCity: 1296
+    sCity: "Запрудня"
+  - idCity: 525
+    sCity: "Зарайск"
+  - idCity: 529
+    sCity: "Звенигород"
+  - idCity: 545
+    sCity: "Ивантеевка, Московская область"
+  - idCity: 2040
+    sCity: "Икша"
+  - idCity: 1380
+    sCity: "Ильинский, Московская область"
+  - idCity: 558
+    sCity: "Истра"
+  - idCity: 597
+    sCity: "Кашира"
+  - idCity: 620
+    sCity: "Климовск"
+  - idCity: 259
+    sCity: "Клин"
+  - idCity: 632
+    sCity: "Коломна"
+  - idCity: 646
+    sCity: "Королёв"
+  - idCity: 652
+    sCity: "Котельники"
+  - idCity: 1210
+    sCity: "Красково"
+  - idCity: 660
+    sCity: "Красноармейск, Московская область"
+  - idCity: 663
+    sCity: "Красногорск, Московская область"
+  - idCity: 665
+    sCity: "Краснозаводск"
+  - idCity: 666
+    sCity: "Краснознаменск, Московская область"
+  - idCity: 2056
+    sCity: "Кратово"
+  - idCity: 683
+    sCity: "Кубинка"
+  - idCity: 2667
+    sCity: "Кудиново, Московская область"
+  - idCity: 695
+    sCity: "Куровское"
+  - idCity: 2445
+    sCity: "Лесной, Московская область"
+  - idCity: 717
+    sCity: "Ликино-Дулёво"
+  - idCity: 721
+    sCity: "Лобня"
+  - idCity: 724
+    sCity: "Лосино-Петровский"
+  - idCity: 728
+    sCity: "Луховицы"
+  - idCity: 731
+    sCity: "Лыткарино"
+  - idCity: 734
+    sCity: "Люберцы"
+  - idCity: 1206
+    sCity: "Малаховка"
+  - idCity: 2661
+    sCity: "Марфино, Московская область"
+  - idCity: 2061
+    sCity: "Менделеево, Московская область"
+  - idCity: 2069
+    sCity: "Мишеронский"
+  - idCity: 778
+    sCity: "Можайск"
+  - idCity: 2036
+    sCity: "Молодежный, Московская область"
+  - idCity: 1209
+    sCity: "Монино"
+  - idCity: 785
+    sCity: "Московский, Московская область"
+  - idCity: 790
+    sCity: "Мытищи"
+  - idCity: 797
+    sCity: "Наро-Фоминск"
+  - idCity: 1198
+    sCity: "Нахабино"
+  - idCity: 1381
+    sCity: "Некрасовский"
+  - idCity: 2671
+    sCity: "Новый Городок, Московская область"
+  - idCity: 844
+    sCity: "Ногинск"
+  - idCity: 2049
+    sCity: "Обухово"
+  - idCity: 855
+    sCity: "Одинцово"
+  - idCity: 856
+    sCity: "Ожерелье"
+  - idCity: 859
+    sCity: "Озёры"
+  - idCity: 2659
+    sCity: "Октябрьский, Московская область"
+  - idCity: 116
+    sCity: "Орехово-Зуево"
+  - idCity: 882
+    sCity: "Павловский Посад"
+  - idCity: 889
+    sCity: "Пересвет"
+  - idCity: 2043
+    sCity: "Пески, Московская область"
+  - idCity: 906
+    sCity: "Подольск"
+  - idCity: 2060
+    sCity: "Пролетарский, Московская область"
+  - idCity: 928
+    sCity: "Протвино"
+  - idCity: 935
+    sCity: "Пушкино, Московская область"
+  - idCity: 127
+    sCity: "Пущино"
+  - idCity: 2657
+    sCity: "Развилка"
+  - idCity: 941
+    sCity: "Раменское"
+  - idCity: 945
+    sCity: "Реутов"
+  - idCity: 2516
+    sCity: "Родники, Московская область"
+  - idCity: 2649
+    sCity: "Рождествено, Московская область"
+  - idCity: 950
+    sCity: "Рошаль"
+  - idCity: 953
+    sCity: "Руза"
+  - idCity: 2072
+    sCity: "Свердловский"
+  - idCity: 2067
+    sCity: "Северный, Московская область"
+  - idCity: 1302
+    sCity: "Селятино"
+  - idCity: 232
+    sCity: "Сергиев Посад"
+  - idCity: 2498
+    sCity: "Серебряные Пруды"
+  - idCity: 988
+    sCity: "Серпухов"
+  - idCity: 2494
+    sCity: "Снегири"
+  - idCity: 1010
+    sCity: "Солнечногорск"
+  - idCity: 1248
+    sCity: "Софрино"
+  - idCity: 1029
+    sCity: "Старая Купавна"
+  - idCity: 2068
+    sCity: "Столбовая"
+  - idCity: 2660
+    sCity: "Строитель, Московская область"
+  - idCity: 1035
+    sCity: "Ступино"
+  - idCity: 1054
+    sCity: "Талдом"
+  - idCity: 1200
+    sCity: "Томилино"
+  - idCity: 1078
+    sCity: "Троицк, Московская область"
+  - idCity: 2695
+    sCity: "Троицкое, Московская область"
+  - idCity: 1235
+    sCity: "Тучково"
+  - idCity: 2046
+    sCity: "Уваровка"
+  - idCity: 1260
+    sCity: "Удельная"
+  - idCity: 1115
+    sCity: "Фрязино"
+  - idCity: 1341
+    sCity: "Фряново"
+  - idCity: 1123
+    sCity: "Химки"
+  - idCity: 1126
+    sCity: "Хотьково"
+  - idCity: 1140
+    sCity: "Черноголовка"
+  - idCity: 2070
+    sCity: "Черусти"
+  - idCity: 1144
+    sCity: "Чехов, Московская область"
+  - idCity: 1154
+    sCity: "Шатура"
+  - idCity: 2696
+    sCity: "Шатурторф"
+  - idCity: 1361
+    sCity: "Шаховская"
+  - idCity: 1171
+    sCity: "Щербинка"
+  - idCity: 1170
+    sCity: "Щёлково"
+  - idCity: 1174
+    sCity: "Электрогорск"
+  - idCity: 1175
+    sCity: "Электросталь"
+  - idCity: 1176
+    sCity: "Электроугли"
+  - idCity: 1179
+    sCity: "Юбилейный, Московская область"
+  - idCity: 1196
+    sCity: "Яхрома"

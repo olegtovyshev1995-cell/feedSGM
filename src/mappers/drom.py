@@ -1,33 +1,44 @@
 """Маппер Drom (легковые автомобили).
 
 Формат: XML `<avtoxml><Offers><Offer>…</Offer></Offers></avtoxml>` по
-инструкции автозакачивания Drom (bulls.xml). Ключ обновления объявления —
-VIN или idOffer.
+инструкции автозакачивания Drom (bulls.xml) — конспект в
+`docs/drom-autoload.md`, справочник в `data/refs/drom_ref.xml`.
 
-Без файла-справочника ref.xml числовые id-поля (idMark, idModel, idCity …)
-надёжно подставить нельзя, поэтому используем текстовые поля s* (sMark,
-sModel, sCity, sTransmission …) — Drom разрешает указывать значение текстом,
-если id недоступен. Фотографии — секция <Photos><Photo>url</Photo></Photos>,
-ссылки в колонке Photos разделяются символом `|`.
+Ключ обновления объявления — VIN **или** idOffer: если в новой версии
+файла совпало любое из этих полей, Дром обновит объявление, а не создаст
+новое. Объявления, которых нет в файле, Дром удаляет.
+
+Числовые id-поля (idMark, idModel, idCity, FrameType, Color …) берутся из
+ref.xml и предпочтительнее: значения вне справочника Дром не примет. Если
+id неизвестен, инструкция разрешает текстовые дубли (sMark, sModel, sCity,
+sTransmission …) — маппер эмитит и те, и другие, что укажете в колонках.
+
+Порядок тегов внутри Offer повторяет порядок таблицы полей в инструкции —
+на случай, если XSD автозакачки описывает Offer как xs:sequence.
 """
 
 from __future__ import annotations
 
 from datetime import datetime, timezone
 
-from src.mappers.base import BaseMapper, split_list, xml_escape
+from src.mappers.base import (
+    BaseMapper,
+    split_list,
+    xml_attr_escape,
+    xml_escape,
+)
 
-# Порядок и состав тегов Offer. Эмитим только непустые поля; обязательные
-# (idOffer, sMark, sModel, sCity, YearOfMade, VIN, Price) гарантирует
-# валидатор. id-поля (idMark/idModel/idCity …) поддержаны опционально —
-# если пользователь всё же знает id из справочника, он положит их в колонки.
+# Порядок и состав тегов Offer — ровно как в таблице полей инструкции
+# (docs/drom-autoload.md). Эмитим только непустые поля; обязательные
+# (idOffer, марка, модель, город, YearOfMade, VIN, Price) гарантирует
+# валидатор — марка/модель/город принимаются как id-, так и s-вариантом.
 _SIMPLE_FIELDS = [
     "idOffer",
-    "idMark", "sMark",
-    "idModel", "sModel",
+    "idMark", "idModel",
+    "sMark", "sModel",
     "idModification",
-    "idCity", "sCity",
     "idCountry",
+    "idCity", "sCity",
     "YearOfMade",
     "VIN",
     "Price",
@@ -36,18 +47,27 @@ _SIMPLE_FIELDS = [
     "Volume",
     "FrameType",
     "Color",
-    "sTransmission",
-    "sEngineType",
-    "sDriveType",
-    "sWheelType",
+    "idTransmission", "sTransmission",
+    "idEngineType", "sEngineType",
+    "idHybridType", "sHybridType",
+    "idGbo", "sGbo",
+    "idDriveType", "sDriveType",
+    "idWheelType", "sWheelType",
     "Haul",
     "idHaulRussiaType",
     "NumberOfOwners",
+    "sComplectation", "idComplectation",
+    "Additional",  # описание ТС; здесь же ссылка на видео с YouTube
+]
+
+# Поля, идущие в инструкции ПОСЛЕ секции Photos.
+_TAIL_FIELDS = [
+    "Phone",          # не более 20 символов
+    "Whereabouts",    # 0 в наличии / 1 в пути / 2 под заказ
     "Power",
-    "Whereabouts",
-    "DamagedType",
-    "Phone",
-    "Additional",  # текстовое описание (можно ссылку на YouTube)
+    "idCertProgram",
+    "DamagedType",    # 0 небитый / 1 битый или не на ходу
+    "SOR",            # номер СТС для авто с пробегом, 10 символов
 ]
 
 _PHOTOS_FIELD = "Photos"
@@ -84,10 +104,20 @@ class DromMapper(BaseMapper):
 
             photos = split_list(rec.get(_PHOTOS_FIELD, ""), "|")
             if photos:
-                lines.append("      <Photos>")
+                attrs = ""
+                for attr in ("PhotoDir", "PhotoMain"):
+                    value = rec.get(attr, "").strip()
+                    if value:
+                        attrs += f' {attr}="{xml_attr_escape(value)}"'
+                lines.append(f"      <Photos{attrs}>")
                 for url in photos:
                     lines.append(f"        <Photo>{xml_escape(url)}</Photo>")
                 lines.append("      </Photos>")
+
+            for field in _TAIL_FIELDS:
+                value = rec.get(field, "").strip()
+                if value:
+                    lines.append(f"      <{field}>{xml_escape(value)}</{field}>")
 
             lines.append("    </Offer>")
 
