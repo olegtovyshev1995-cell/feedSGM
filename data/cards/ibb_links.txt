@@ -1,0 +1,34 @@
+# Ссылки на фото Ford Ranger Raptor 2026 (объявление №465119198).
+# Здесь страницы просмотра imgbb — прямые ссылки получаются командой:
+#   python -m scripts.resolve_ibb_links data/cards/ibb_links.txt \
+#       --update-card data/cards/ford-ranger-raptor-2026.yaml
+https://ibb.co/C5988sKL
+https://ibb.co/cS0dMx5y
+https://ibb.co/nqmjs6R7
+https://ibb.co/PpGs36j
+https://ibb.co/cS4zcbdn
+https://ibb.co/QvPtJfpz
+https://ibb.co/SDyg1TWq
+https://ibb.co/wh43VgN0
+https://ibb.co/Pv4L4PXq
+https://ibb.co/Fq81FQbh
+https://ibb.co/MDpW4nhz
+https://ibb.co/kVcx3jMq
+https://ibb.co/tTmBqzB1
+https://ibb.co/zTYB8L1G
+https://ibb.co/rRX6jQY1
+https://ibb.co/TMXbxLQj
+https://ibb.co/VW3FRsLh
+https://ibb.co/fGtZJdjS
+https://ibb.co/v6QP3pDf
+https://ibb.co/VpvHpsDQ
+https://ibb.co/tw0R4FXB
+https://ibb.co/d4SFz48M
+https://ibb.co/KjP0sLF9
+https://ibb.co/tMxXdMQC
+https://ibb.co/Cs7GQHbQ
+https://ibb.co/Mk6jPPSt
+https://ibb.co/k20bCx5W
+https://ibb.co/DHRt8WDN
+https://ibb.co/sdHgpcJp
+https://ibb.co/67C2tgK4

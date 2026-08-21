@@ -22,6 +22,8 @@ from src.mappers import MAPPERS
 from src.mappers.base import cdata, split_list, xml_escape
 from src.sheets_client import rows_to_dicts
 from src.validators import ValidationFailure, validate_rows
+from scripts.build_from_card import check_photos
+from scripts.resolve_ibb_links import extract_direct_url, update_card
 
 
 # ── Хелперы ────────────────────────────────────────────────────────
@@ -392,3 +394,43 @@ def test_load_cities_reads_generated_dictionary():
 def test_load_cities_rejects_missing_file():
     with pytest.raises(FanoutError, match="не найден"):
         load_cities("config/нет-такого.yaml")
+
+
+# ── Фото: прямые ссылки ────────────────────────────────────────────
+def test_check_photos_flags_page_links():
+    """ibb.co/XXXX — страница, а не файл: Дром такое фото не загрузит."""
+    bad = check_photos({
+        "Photos": "https://ibb.co/C5988sKL|https://i.ibb.co/x/a.jpg",
+        "PhotoDir": "", "PhotoMain": "",
+    })
+    assert bad == ["https://ibb.co/C5988sKL"]
+
+
+def test_check_photos_accounts_for_photodir_prefix():
+    # PhotoDir + имя файла в сумме дают .jpg — претензий нет.
+    assert check_photos({
+        "Photos": "a.jpg|b.jpeg", "PhotoDir": "https://i.ibb.co/x/", "PhotoMain": "m.jpg",
+    }) == []
+
+
+def test_extract_direct_url_prefers_og_image():
+    html = '<meta property="og:image" content="https://i.ibb.co/abc/ford-1.jpg">'
+    assert extract_direct_url(html) == "https://i.ibb.co/abc/ford-1.jpg"
+
+
+def test_extract_direct_url_falls_back_to_markup_and_gives_up():
+    assert extract_direct_url('<img src="https://i.ibb.co/z/p.jpeg">') == \
+        "https://i.ibb.co/z/p.jpeg"
+    assert extract_direct_url("<html>пусто</html>") is None
+
+
+def test_update_card_replaces_photos_line_only(tmp_path):
+    card = tmp_path / "card.yaml"
+    card.write_text(
+        'offer:\n  Photos: "https://ibb.co/A|https://ibb.co/B"\n  Price: "100"\n',
+        encoding="utf-8",
+    )
+    update_card(card, ["https://i.ibb.co/x/1.jpg", "https://i.ibb.co/y/2.jpg"])
+    text = card.read_text(encoding="utf-8")
+    assert 'Photos: "https://i.ibb.co/x/1.jpg|https://i.ibb.co/y/2.jpg"' in text
+    assert 'Price: "100"' in text  # остальное не тронуто
