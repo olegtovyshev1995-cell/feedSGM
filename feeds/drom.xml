@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <avtoxml>
-  <lastBuildDate>2026-08-21T07:47:13+0000</lastBuildDate>
+  <lastBuildDate>2026-08-26T10:49:51+0000</lastBuildDate>
   <Offers>
     <Offer>
       <idOffer>SGM-RAPTOR-0001</idOffer>
@@ -12,7 +12,7 @@
       <idCity>137</idCity>
       <sCity>Самара</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -145,7 +145,7 @@ Bedliner с розетками 12V и 230V
       <idCity>299</idCity>
       <sCity>Апрелевка</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -277,7 +277,7 @@ Bedliner с розетками 12V и 230V
       <idCity>2651</idCity>
       <sCity>Архангельское, Московская область</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -409,7 +409,7 @@ Bedliner с розетками 12V и 230V
       <idCity>325</idCity>
       <sCity>Балашиха</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -541,7 +541,7 @@ Bedliner с розетками 12V и 230V
       <idCity>1232</idCity>
       <sCity>Белоозёрский</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -673,7 +673,7 @@ Bedliner с розетками 12V и 230V
       <idCity>2057</idCity>
       <sCity>Богородское, Московская область</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -805,7 +805,7 @@ Bedliner с розетками 12V и 230V
       <idCity>2689</idCity>
       <sCity>Большевик, Московская область</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -937,7 +937,7 @@ Bedliner с розетками 12V и 230V
       <idCity>376</idCity>
       <sCity>Бронницы</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -1069,7 +1069,7 @@ Bedliner с розетками 12V и 230V
       <idCity>1369</idCity>
       <sCity>Быково, Московская область</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -1201,7 +1201,7 @@ Bedliner с розетками 12V и 230V
       <idCity>392</idCity>
       <sCity>Верея</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -1333,7 +1333,7 @@ Bedliner с розетками 12V и 230V
       <idCity>403</idCity>
       <sCity>Видное</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -1465,7 +1465,7 @@ Bedliner с розетками 12V и 230V
       <idCity>1203</idCity>
       <sCity>Власиха, Московская область</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -1597,7 +1597,7 @@ Bedliner с розетками 12V и 230V
       <idCity>410</idCity>
       <sCity>Волоколамск</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -1729,7 +1729,7 @@ Bedliner с розетками 12V и 230V
       <idCity>417</idCity>
       <sCity>Воскресенск</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -1861,7 +1861,7 @@ Bedliner с розетками 12V и 230V
       <idCity>2656</idCity>
       <sCity>Воскресенское, Московская область</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -1993,7 +1993,7 @@ Bedliner с розетками 12V и 230V
       <idCity>2034</idCity>
       <sCity>Восход, Московская область</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -2125,7 +2125,7 @@ Bedliner с розетками 12V и 230V
       <idCity>423</idCity>
       <sCity>Высоковск</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -2257,7 +2257,7 @@ Bedliner с розетками 12V и 230V
       <idCity>441</idCity>
       <sCity>Голицыно</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -2389,7 +2389,7 @@ Bedliner с розетками 12V и 230V
       <idCity>470</idCity>
       <sCity>Дедовск</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -2521,7 +2521,7 @@ Bedliner с розетками 12V и 230V
       <idCity>475</idCity>
       <sCity>Дзержинский</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -2653,7 +2653,7 @@ Bedliner с розетками 12V и 230V
       <idCity>479</idCity>
       <sCity>Дмитров</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -2785,7 +2785,7 @@ Bedliner с розетками 12V и 230V
       <idCity>261</idCity>
       <sCity>Долгопрудный</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -2917,7 +2917,7 @@ Bedliner с розетками 12V и 230V
       <idCity>484</idCity>
       <sCity>Домодедово</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -3049,7 +3049,7 @@ Bedliner с розетками 12V и 230V
       <idCity>488</idCity>
       <sCity>Дрезна</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -3181,7 +3181,7 @@ Bedliner с розетками 12V и 230V
       <idCity>2679</idCity>
       <sCity>Дружба, Московская область</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -3313,7 +3313,7 @@ Bedliner с розетками 12V и 230V
       <idCity>41</idCity>
       <sCity>Дубна, Московская область</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -3445,7 +3445,7 @@ Bedliner с розетками 12V и 230V
       <idCity>493</idCity>
       <sCity>Егорьевск</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -3577,7 +3577,7 @@ Bedliner с розетками 12V и 230V
       <idCity>506</idCity>
       <sCity>Железнодорожный, Московская область</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -3709,7 +3709,7 @@ Bedliner с розетками 12V и 230V
       <idCity>513</idCity>
       <sCity>Жуковский</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -3841,7 +3841,7 @@ Bedliner с розетками 12V и 230V
       <idCity>1296</idCity>
       <sCity>Запрудня</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -3973,7 +3973,7 @@ Bedliner с розетками 12V и 230V
       <idCity>525</idCity>
       <sCity>Зарайск</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -4105,7 +4105,7 @@ Bedliner с розетками 12V и 230V
       <idCity>529</idCity>
       <sCity>Звенигород</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -4237,7 +4237,7 @@ Bedliner с розетками 12V и 230V
       <idCity>545</idCity>
       <sCity>Ивантеевка, Московская область</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -4369,7 +4369,7 @@ Bedliner с розетками 12V и 230V
       <idCity>2040</idCity>
       <sCity>Икша</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -4501,7 +4501,7 @@ Bedliner с розетками 12V и 230V
       <idCity>1380</idCity>
       <sCity>Ильинский, Московская область</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -4633,7 +4633,7 @@ Bedliner с розетками 12V и 230V
       <idCity>558</idCity>
       <sCity>Истра</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -4765,7 +4765,7 @@ Bedliner с розетками 12V и 230V
       <idCity>597</idCity>
       <sCity>Кашира</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -4897,7 +4897,7 @@ Bedliner с розетками 12V и 230V
       <idCity>620</idCity>
       <sCity>Климовск</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -5029,7 +5029,7 @@ Bedliner с розетками 12V и 230V
       <idCity>259</idCity>
       <sCity>Клин</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -5161,7 +5161,7 @@ Bedliner с розетками 12V и 230V
       <idCity>632</idCity>
       <sCity>Коломна</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -5293,7 +5293,7 @@ Bedliner с розетками 12V и 230V
       <idCity>646</idCity>
       <sCity>Королёв</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -5425,7 +5425,7 @@ Bedliner с розетками 12V и 230V
       <idCity>652</idCity>
       <sCity>Котельники</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -5557,7 +5557,7 @@ Bedliner с розетками 12V и 230V
       <idCity>1210</idCity>
       <sCity>Красково</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -5689,7 +5689,7 @@ Bedliner с розетками 12V и 230V
       <idCity>660</idCity>
       <sCity>Красноармейск, Московская область</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -5821,7 +5821,7 @@ Bedliner с розетками 12V и 230V
       <idCity>663</idCity>
       <sCity>Красногорск, Московская область</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -5953,7 +5953,7 @@ Bedliner с розетками 12V и 230V
       <idCity>665</idCity>
       <sCity>Краснозаводск</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -6085,7 +6085,7 @@ Bedliner с розетками 12V и 230V
       <idCity>666</idCity>
       <sCity>Краснознаменск, Московская область</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -6217,7 +6217,7 @@ Bedliner с розетками 12V и 230V
       <idCity>2056</idCity>
       <sCity>Кратово</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -6349,7 +6349,7 @@ Bedliner с розетками 12V и 230V
       <idCity>683</idCity>
       <sCity>Кубинка</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -6481,7 +6481,7 @@ Bedliner с розетками 12V и 230V
       <idCity>2667</idCity>
       <sCity>Кудиново, Московская область</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -6613,7 +6613,7 @@ Bedliner с розетками 12V и 230V
       <idCity>695</idCity>
       <sCity>Куровское</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -6745,7 +6745,7 @@ Bedliner с розетками 12V и 230V
       <idCity>2445</idCity>
       <sCity>Лесной, Московская область</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -6877,7 +6877,7 @@ Bedliner с розетками 12V и 230V
       <idCity>717</idCity>
       <sCity>Ликино-Дулёво</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -7009,7 +7009,7 @@ Bedliner с розетками 12V и 230V
       <idCity>721</idCity>
       <sCity>Лобня</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -7141,7 +7141,7 @@ Bedliner с розетками 12V и 230V
       <idCity>724</idCity>
       <sCity>Лосино-Петровский</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -7273,7 +7273,7 @@ Bedliner с розетками 12V и 230V
       <idCity>728</idCity>
       <sCity>Луховицы</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -7405,7 +7405,7 @@ Bedliner с розетками 12V и 230V
       <idCity>731</idCity>
       <sCity>Лыткарино</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -7537,7 +7537,7 @@ Bedliner с розетками 12V и 230V
       <idCity>734</idCity>
       <sCity>Люберцы</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -7669,7 +7669,7 @@ Bedliner с розетками 12V и 230V
       <idCity>1206</idCity>
       <sCity>Малаховка</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -7801,7 +7801,7 @@ Bedliner с розетками 12V и 230V
       <idCity>2661</idCity>
       <sCity>Марфино, Московская область</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -7933,7 +7933,7 @@ Bedliner с розетками 12V и 230V
       <idCity>2061</idCity>
       <sCity>Менделеево, Московская область</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -8065,7 +8065,7 @@ Bedliner с розетками 12V и 230V
       <idCity>2069</idCity>
       <sCity>Мишеронский</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -8197,7 +8197,7 @@ Bedliner с розетками 12V и 230V
       <idCity>778</idCity>
       <sCity>Можайск</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -8329,7 +8329,7 @@ Bedliner с розетками 12V и 230V
       <idCity>2036</idCity>
       <sCity>Молодежный, Московская область</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -8461,7 +8461,7 @@ Bedliner с розетками 12V и 230V
       <idCity>1209</idCity>
       <sCity>Монино</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -8593,7 +8593,7 @@ Bedliner с розетками 12V и 230V
       <idCity>785</idCity>
       <sCity>Московский, Московская область</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -8725,7 +8725,7 @@ Bedliner с розетками 12V и 230V
       <idCity>790</idCity>
       <sCity>Мытищи</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -8857,7 +8857,7 @@ Bedliner с розетками 12V и 230V
       <idCity>797</idCity>
       <sCity>Наро-Фоминск</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -8989,7 +8989,7 @@ Bedliner с розетками 12V и 230V
       <idCity>1198</idCity>
       <sCity>Нахабино</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -9121,7 +9121,7 @@ Bedliner с розетками 12V и 230V
       <idCity>1381</idCity>
       <sCity>Некрасовский</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -9253,7 +9253,7 @@ Bedliner с розетками 12V и 230V
       <idCity>2671</idCity>
       <sCity>Новый Городок, Московская область</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -9385,7 +9385,7 @@ Bedliner с розетками 12V и 230V
       <idCity>844</idCity>
       <sCity>Ногинск</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -9517,7 +9517,7 @@ Bedliner с розетками 12V и 230V
       <idCity>2049</idCity>
       <sCity>Обухово</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -9649,7 +9649,7 @@ Bedliner с розетками 12V и 230V
       <idCity>855</idCity>
       <sCity>Одинцово</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -9781,7 +9781,7 @@ Bedliner с розетками 12V и 230V
       <idCity>856</idCity>
       <sCity>Ожерелье</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -9913,7 +9913,7 @@ Bedliner с розетками 12V и 230V
       <idCity>859</idCity>
       <sCity>Озёры</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -10045,7 +10045,7 @@ Bedliner с розетками 12V и 230V
       <idCity>2659</idCity>
       <sCity>Октябрьский, Московская область</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -10177,7 +10177,7 @@ Bedliner с розетками 12V и 230V
       <idCity>116</idCity>
       <sCity>Орехово-Зуево</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -10309,7 +10309,7 @@ Bedliner с розетками 12V и 230V
       <idCity>882</idCity>
       <sCity>Павловский Посад</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -10441,7 +10441,7 @@ Bedliner с розетками 12V и 230V
       <idCity>889</idCity>
       <sCity>Пересвет</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -10573,7 +10573,7 @@ Bedliner с розетками 12V и 230V
       <idCity>2043</idCity>
       <sCity>Пески, Московская область</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -10705,7 +10705,7 @@ Bedliner с розетками 12V и 230V
       <idCity>906</idCity>
       <sCity>Подольск</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -10837,7 +10837,7 @@ Bedliner с розетками 12V и 230V
       <idCity>2060</idCity>
       <sCity>Пролетарский, Московская область</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -10969,7 +10969,7 @@ Bedliner с розетками 12V и 230V
       <idCity>928</idCity>
       <sCity>Протвино</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -11101,7 +11101,7 @@ Bedliner с розетками 12V и 230V
       <idCity>935</idCity>
       <sCity>Пушкино, Московская область</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -11233,7 +11233,7 @@ Bedliner с розетками 12V и 230V
       <idCity>127</idCity>
       <sCity>Пущино</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -11365,7 +11365,7 @@ Bedliner с розетками 12V и 230V
       <idCity>2657</idCity>
       <sCity>Развилка</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -11497,7 +11497,7 @@ Bedliner с розетками 12V и 230V
       <idCity>941</idCity>
       <sCity>Раменское</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -11629,7 +11629,7 @@ Bedliner с розетками 12V и 230V
       <idCity>945</idCity>
       <sCity>Реутов</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -11761,7 +11761,7 @@ Bedliner с розетками 12V и 230V
       <idCity>2516</idCity>
       <sCity>Родники, Московская область</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -11893,7 +11893,7 @@ Bedliner с розетками 12V и 230V
       <idCity>2649</idCity>
       <sCity>Рождествено, Московская область</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -12025,7 +12025,7 @@ Bedliner с розетками 12V и 230V
       <idCity>950</idCity>
       <sCity>Рошаль</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -12157,7 +12157,7 @@ Bedliner с розетками 12V и 230V
       <idCity>953</idCity>
       <sCity>Руза</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -12289,7 +12289,7 @@ Bedliner с розетками 12V и 230V
       <idCity>2072</idCity>
       <sCity>Свердловский</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -12421,7 +12421,7 @@ Bedliner с розетками 12V и 230V
       <idCity>2067</idCity>
       <sCity>Северный, Московская область</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -12553,7 +12553,7 @@ Bedliner с розетками 12V и 230V
       <idCity>1302</idCity>
       <sCity>Селятино</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -12685,7 +12685,7 @@ Bedliner с розетками 12V и 230V
       <idCity>232</idCity>
       <sCity>Сергиев Посад</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -12817,7 +12817,7 @@ Bedliner с розетками 12V и 230V
       <idCity>2498</idCity>
       <sCity>Серебряные Пруды</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -12949,7 +12949,7 @@ Bedliner с розетками 12V и 230V
       <idCity>988</idCity>
       <sCity>Серпухов</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -13081,7 +13081,7 @@ Bedliner с розетками 12V и 230V
       <idCity>2494</idCity>
       <sCity>Снегири</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -13213,7 +13213,7 @@ Bedliner с розетками 12V и 230V
       <idCity>1010</idCity>
       <sCity>Солнечногорск</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -13345,7 +13345,7 @@ Bedliner с розетками 12V и 230V
       <idCity>1248</idCity>
       <sCity>Софрино</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -13477,7 +13477,7 @@ Bedliner с розетками 12V и 230V
       <idCity>1029</idCity>
       <sCity>Старая Купавна</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -13609,7 +13609,7 @@ Bedliner с розетками 12V и 230V
       <idCity>2068</idCity>
       <sCity>Столбовая</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -13741,7 +13741,7 @@ Bedliner с розетками 12V и 230V
       <idCity>2660</idCity>
       <sCity>Строитель, Московская область</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -13873,7 +13873,7 @@ Bedliner с розетками 12V и 230V
       <idCity>1035</idCity>
       <sCity>Ступино</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -14005,7 +14005,7 @@ Bedliner с розетками 12V и 230V
       <idCity>1054</idCity>
       <sCity>Талдом</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -14137,7 +14137,7 @@ Bedliner с розетками 12V и 230V
       <idCity>1200</idCity>
       <sCity>Томилино</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -14269,7 +14269,7 @@ Bedliner с розетками 12V и 230V
       <idCity>1078</idCity>
       <sCity>Троицк, Московская область</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -14401,7 +14401,7 @@ Bedliner с розетками 12V и 230V
       <idCity>2695</idCity>
       <sCity>Троицкое, Московская область</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -14533,7 +14533,7 @@ Bedliner с розетками 12V и 230V
       <idCity>1235</idCity>
       <sCity>Тучково</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -14665,7 +14665,7 @@ Bedliner с розетками 12V и 230V
       <idCity>2046</idCity>
       <sCity>Уваровка</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -14797,7 +14797,7 @@ Bedliner с розетками 12V и 230V
       <idCity>1260</idCity>
       <sCity>Удельная</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -14929,7 +14929,7 @@ Bedliner с розетками 12V и 230V
       <idCity>1115</idCity>
       <sCity>Фрязино</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -15061,7 +15061,7 @@ Bedliner с розетками 12V и 230V
       <idCity>1341</idCity>
       <sCity>Фряново</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -15193,7 +15193,7 @@ Bedliner с розетками 12V и 230V
       <idCity>1123</idCity>
       <sCity>Химки</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -15325,7 +15325,7 @@ Bedliner с розетками 12V и 230V
       <idCity>1126</idCity>
       <sCity>Хотьково</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -15457,7 +15457,7 @@ Bedliner с розетками 12V и 230V
       <idCity>1140</idCity>
       <sCity>Черноголовка</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -15589,7 +15589,7 @@ Bedliner с розетками 12V и 230V
       <idCity>2070</idCity>
       <sCity>Черусти</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -15721,7 +15721,7 @@ Bedliner с розетками 12V и 230V
       <idCity>1144</idCity>
       <sCity>Чехов, Московская область</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -15853,7 +15853,7 @@ Bedliner с розетками 12V и 230V
       <idCity>1154</idCity>
       <sCity>Шатура</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -15985,7 +15985,7 @@ Bedliner с розетками 12V и 230V
       <idCity>2696</idCity>
       <sCity>Шатурторф</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -16117,7 +16117,7 @@ Bedliner с розетками 12V и 230V
       <idCity>1361</idCity>
       <sCity>Шаховская</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -16249,7 +16249,7 @@ Bedliner с розетками 12V и 230V
       <idCity>1171</idCity>
       <sCity>Щербинка</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -16381,7 +16381,7 @@ Bedliner с розетками 12V и 230V
       <idCity>1170</idCity>
       <sCity>Щёлково</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -16513,7 +16513,7 @@ Bedliner с розетками 12V и 230V
       <idCity>1174</idCity>
       <sCity>Электрогорск</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -16645,7 +16645,7 @@ Bedliner с розетками 12V и 230V
       <idCity>1175</idCity>
       <sCity>Электросталь</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -16777,7 +16777,7 @@ Bedliner с розетками 12V и 230V
       <idCity>1176</idCity>
       <sCity>Электроугли</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -16909,7 +16909,7 @@ Bedliner с розетками 12V и 230V
       <idCity>1179</idCity>
       <sCity>Юбилейный, Московская область</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>
@@ -17041,7 +17041,7 @@ Bedliner с розетками 12V и 230V
       <idCity>1196</idCity>
       <sCity>Яхрома</sCity>
       <YearOfMade>2026</YearOfMade>
-      <Price>8300000</Price>
+      <Price>8786000</Price>
       <idCurrency>1</idCurrency>
       <idNewType>1</idNewType>
       <Volume>2000</Volume>

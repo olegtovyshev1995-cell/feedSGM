@@ -38,7 +38,7 @@ offer:
   sCity: "Самара"
   sCityIn: "в Самаре"          # предложный падеж для {city_in} исходной строки
   idCountry: "0"
-  Price: "8300000"                # с учётом НДС 22%
+  Price: "8786000"                # с учётом НДС 22%
   idCurrency: "1"                 # rub
   Whereabouts: "2"                # 2 — под заказ
 
