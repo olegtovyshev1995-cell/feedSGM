@@ -36,3 +36,12 @@ deploy/.env
 deploy/config.yaml
 deploy/secrets/*
 !deploy/secrets/.gitkeep
+
+# ── PHP-генератор фида Авто.ру (feed.php) ─────────────────────────
+# Реальный конфиг с кредами БД — только на сервере, не в git.
+feed.config.php
+# Рантайм-артефакты: статический кэш фида и лог (пишутся скриптом).
+# Привязка к корню, чтобы не задеть feeds/autoru.xml Python-пайплайна.
+/autoru.xml
+/autoru.xml.tmp
+/feed.log
