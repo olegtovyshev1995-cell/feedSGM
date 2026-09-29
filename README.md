@@ -262,3 +262,15 @@ python scripts/autoru_export.py --category all             # все объявл
 python scripts/autoru_export.py --inactive                 # только неактивные
 python scripts/autoru_export.py --category cars --status ACTIVE
 ```
+
+### Фид Drom из активных объявлений Auto.ru
+
+```bash
+python scripts/autoru_export.py --category all     # выгрузка → exports/
+python -m src.autoru_to_drom --city "Москва"       # → feeds/drom_autoru.xml
+```
+
+Берутся только легковые в статусе `ACTIVE`; коды Auto.ru переводятся в
+текстовые поля Drom, фото — ссылки Auto.ru. Объявления без обязательных
+полей Drom пропускаются (список в логе). На сервере это делает стадия
+`autoru_to_drom` сразу после выгрузки (см. `deploy/README.md`).

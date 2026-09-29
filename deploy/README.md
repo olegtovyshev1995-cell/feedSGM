@@ -76,6 +76,7 @@ curl -I https://<ВАШ_ДОМЕН>/feeds/avito.xml
 - `https://<домен>/feeds/avito.xml`
 - `https://<домен>/feeds/autoru.xml`
 - `https://<домен>/feeds/drom.xml`
+- `https://<домен>/feeds/drom_autoru.xml` — Drom из активных объявлений Auto.ru
 
 ---
 
@@ -92,6 +93,20 @@ curl -I https://<ВАШ_ДОМЕН>/feeds/avito.xml
   (отключить: `AUTORU_EXPORT_INACTIVE=0`).
 
 Наружу через Caddy выгрузки **не** раздаются (это данные кабинета).
+
+### Фид Drom из объявлений Auto.ru
+
+Следом за выгрузкой стадия `autoru_to_drom` собирает из **активных легковых**
+объявлений Auto.ru фид Drom: `https://<домен>/feeds/drom_autoru.xml` — эту
+ссылку отдают Drom (`client@drom.ru` или кабинет автозагрузки). Коды Auto.ru
+переводятся в текстовые поля Drom (`sMark`, `sTransmission`, `Color` …), фото —
+ссылки Auto.ru максимального размера. Объявления без обязательных полей
+Drom (марка, модель, город, год, VIN, цена) пропускаются, список — в логе.
+Если в объявлениях нет города — задайте `DROM_CITY` в `.env`.
+
+```bash
+docker compose run --rm scheduler python -m src.autoru_to_drom
+```
 
 ```bash
 # выгрузить прямо сейчас

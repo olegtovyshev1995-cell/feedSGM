@@ -5,6 +5,7 @@
 #   https://<DOMAIN>/feeds/avito.xml
 #   https://<DOMAIN>/feeds/autoru.xml
 #   https://<DOMAIN>/feeds/drom.xml
+#   https://<DOMAIN>/feeds/drom_autoru.xml   (Drom из активных объявлений Auto.ru)
 
 {$DOMAIN} {
 	encode zstd gzip

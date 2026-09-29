@@ -32,6 +32,8 @@ run_once() {
       run_stage "autoru_export_inactive" python scripts/autoru_export.py \
         --category "${AUTORU_CATEGORY:-all}" --inactive
     fi
+    # Фид Drom из активных объявлений Auto.ru → feeds/drom_autoru.xml.
+    run_stage "autoru_to_drom" python -m src.autoru_to_drom
   else
     log "стадия autoru_export: пропуск (AUTORU_API_KEY не задан)"
   fi
