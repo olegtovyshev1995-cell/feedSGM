@@ -82,3 +82,17 @@ def test_outputs(tmp_path):
     assert json.loads(json_path.read_text(encoding="utf-8"))[0]["id"] == "1-abc"
     rows = list(csv.DictReader(csv_path.open(encoding="utf-8-sig"), delimiter=";"))
     assert rows[0]["price"] == "5000000"
+
+
+def test_latest_copy_and_env_file(tmp_path, monkeypatch):
+    from scripts.autoru_export import _env_or_file
+
+    write_outputs([_offer(1)], tmp_path, "all")
+    assert (tmp_path / "autoru_offers_all_latest.json").is_file()
+    assert (tmp_path / "autoru_offers_all_latest.csv").is_file()
+
+    secret = tmp_path / "pw"
+    secret.write_text("s3cret\n", encoding="utf-8")
+    monkeypatch.delenv("AUTORU_PASSWORD", raising=False)
+    monkeypatch.setenv("AUTORU_PASSWORD_FILE", str(secret))
+    assert _env_or_file("AUTORU_PASSWORD") == "s3cret"

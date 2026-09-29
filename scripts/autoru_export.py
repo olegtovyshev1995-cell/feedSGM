@@ -15,12 +15,15 @@
 - ``<out>/autoru_offers_<category>_<дата>.json`` — сырые объявления целиком
   (все поля, как отдал API);
 - ``<out>/autoru_offers_<category>_<дата>.csv`` — плоская таблица ключевых
-  полей для Excel/Google Sheets.
+  полей для Excel/Google Sheets;
+- ``<out>/autoru_offers_<category>_latest.{json,csv}`` — копия последней
+  выгрузки под стабильным именем (для следующих стадий на сервере).
 
 Секреты — только из окружения (R1):
   AUTORU_API_KEY                  — обязательно (можно с префиксом «Vertis »);
   AUTORU_SESSION_ID               — либо он,
   AUTORU_LOGIN + AUTORU_PASSWORD  — либо логин/пароль кабинета.
+Любую переменную можно задать файлом: AUTORU_PASSWORD_FILE=/путь и т.п.
 
 Пример:
   export AUTORU_API_KEY=...  AUTORU_LOGIN=...  AUTORU_PASSWORD=...
@@ -233,7 +236,24 @@ def write_outputs(offers: list[dict], out_dir: Path, category: str) -> tuple[Pat
         writer.writeheader()
         for offer in offers:
             writer.writerow(offer_to_row(offer))
+    # Стабильные имена «последней выгрузки» — их читают следующие стадии на сервере.
+    for src in (json_path, csv_path):
+        latest = out_dir / f"autoru_offers_{category}_latest{src.suffix}"
+        tmp = latest.with_suffix(latest.suffix + ".tmp")
+        tmp.write_bytes(src.read_bytes())
+        os.replace(tmp, latest)
     return json_path, csv_path
+
+
+def _env_or_file(name: str) -> str | None:
+    """Значение из env NAME или из файла по пути NAME_FILE (секреты на сервере)."""
+    value = os.environ.get(name)
+    if value:
+        return value.strip()
+    path = os.environ.get(f"{name}_FILE")
+    if path and Path(path).is_file():
+        return Path(path).read_text(encoding="utf-8").strip() or None
+    return None
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -250,13 +270,13 @@ def main(argv: list[str] | None = None) -> int:
                         format="%(asctime)s %(levelname)s %(name)s: %(message)s")
     try:
         client = AutoruClient(
-            os.environ.get("AUTORU_API_KEY", ""),
+            _env_or_file("AUTORU_API_KEY") or "",
             base_url=args.base_url,
-            session_id=os.environ.get("AUTORU_SESSION_ID") or None,
+            session_id=_env_or_file("AUTORU_SESSION_ID"),
         )
         if not client.session_id:
-            login = os.environ.get("AUTORU_LOGIN")
-            password = os.environ.get("AUTORU_PASSWORD")
+            login = _env_or_file("AUTORU_LOGIN")
+            password = _env_or_file("AUTORU_PASSWORD")
             if not (login and password):
                 raise AutoruApiError(
                     "Задайте AUTORU_SESSION_ID или пару AUTORU_LOGIN/AUTORU_PASSWORD."

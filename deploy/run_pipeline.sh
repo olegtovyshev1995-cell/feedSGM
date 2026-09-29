@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Прогон пайплайна на сервере: enrich → host_photos → build (фиды).
+# Прогон пайплайна на сервере: autoru_export → enrich → host_photos → build (фиды).
 # Стадии независимы: падение одной логируется, остальные продолжают.
 # Флаг --loop запускает раз в сутки в RUN_AT (иначе — один прогон и выход).
 set -uo pipefail
@@ -23,6 +23,13 @@ run_stage() {
 
 run_once() {
   log "=== прогон пайплайна начат ==="
+  # A0: выгрузка всех объявлений кабинета Auto.ru по API → exports/
+  # (нужны AUTORU_API_KEY + логин/пароль или сессия). Без ключа — пропуск.
+  if [ -n "${AUTORU_API_KEY:-}${AUTORU_API_KEY_FILE:-}" ]; then
+    run_stage "autoru_export" python scripts/autoru_export.py --category "${AUTORU_CATEGORY:-all}"
+  else
+    log "стадия autoru_export: пропуск (AUTORU_API_KEY не задан)"
+  fi
   # B+C1: спецификация + подбор фото (нужны GOOGLE_SA_JSON + ANTHROPIC_API_KEY).
   run_stage "enrich"       python -m src.enrich
   # C3+C4: хостинг и уникализация фото (нужен IMGBB_API_KEY).

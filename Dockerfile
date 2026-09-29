@@ -17,7 +17,7 @@ COPY . .
 
 # Непривилегированный пользователь (безопасность по умолчанию).
 RUN useradd --create-home --uid 10001 app \
-    && mkdir -p /app/feeds /app/data \
+    && mkdir -p /app/feeds /app/data /app/exports \
     && chown -R app:app /app
 USER app
 

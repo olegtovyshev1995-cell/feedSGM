@@ -4,6 +4,7 @@
 # Запуск:  cd deploy && docker compose up -d --build
 # Логи:    docker compose logs -f scheduler
 # Разово:  docker compose run --rm scheduler python -m src.enrich
+# Auto.ru: docker compose run --rm scheduler python scripts/autoru_export.py
 
 services:
   scheduler:
@@ -18,6 +19,8 @@ services:
       # Постоянные тома: готовые фиды и кэш пайплайна (спеки/фото/состояние).
       - feeds:/app/feeds
       - data:/app/data
+      # Выгрузки объявлений из кабинета Auto.ru (наружу НЕ раздаются).
+      - exports:/app/exports
     command: ["bash", "deploy/run_pipeline.sh", "--loop"]
     restart: unless-stopped
 
@@ -41,5 +44,6 @@ services:
 volumes:
   feeds:
   data:
+  exports:
   caddy_data:
   caddy_config:

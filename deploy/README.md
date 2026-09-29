@@ -5,7 +5,7 @@
 
 ```
 Ваш сервер
-├── scheduler (Docker)  — раз в сутки: enrich → host_photos → build
+├── scheduler (Docker)  — раз в сутки: autoru_export → enrich → host_photos → build
 └── caddy (Docker)      — https://<домен>/feeds/*.xml  (авто-сертификат)
 ```
 
@@ -79,6 +79,25 @@ curl -I https://<ВАШ_ДОМЕН>/feeds/avito.xml
 
 ---
 
+## Выгрузка объявлений Auto.ru по API
+
+В `.env` заполните `AUTORU_API_KEY` (ключ из кабинета, можно с `Vertis `)
+и `AUTORU_LOGIN` + `AUTORU_PASSWORD` (или `AUTORU_SESSION_ID`). Если ключ
+задан, каждый прогон начинается со стадии `autoru_export`: все объявления
+кабинета сохраняются в том `exports`:
+
+- `autoru_offers_all_<дата>.json|csv` — снимок каждой выгрузки;
+- `autoru_offers_all_latest.json|csv` — последняя выгрузка (стабильное имя).
+
+Наружу через Caddy выгрузки **не** раздаются (это данные кабинета).
+
+```bash
+# выгрузить прямо сейчас
+docker compose run --rm scheduler python scripts/autoru_export.py --category all
+# скопировать CSV на хост
+docker compose cp scheduler:/app/exports/autoru_offers_all_latest.csv .
+```
+
 ## Полезные команды
 
 | Действие | Команда |
@@ -86,6 +105,7 @@ curl -I https://<ВАШ_ДОМЕН>/feeds/avito.xml
 | Разовый прогон только спеки | `docker compose run --rm scheduler python -m src.enrich` |
 | Разовый прогон фото | `docker compose run --rm scheduler python -m src.host_photos` |
 | Пересобрать фиды сейчас | `docker compose run --rm scheduler python -m src.build` |
+| Выгрузить объявления Auto.ru | `docker compose run --rm scheduler python scripts/autoru_export.py` |
 | Логи | `docker compose logs -f scheduler` |
 | Обновить код | `git pull && docker compose up -d --build` |
 | Остановить | `docker compose down` |
@@ -104,4 +124,5 @@ curl -I https://<ВАШ_ДОМЕН>/feeds/avito.xml
 | Нет HTTPS / сертификат не выпускается | DNS домена не указывает на сервер, или закрыты порты 80/443 |
 | `403 Forbidden к таблице` | не выдан Viewer сервисному аккаунту |
 | `Не задана переменная окружения ANTHROPIC_API_KEY` | пусто в `.env` |
+| `autoru_export: HTTP 401` | неверный `AUTORU_API_KEY` или логин/пароль кабинета |
 | Фиды не обновляются | смотрите `docker compose logs scheduler` — какая стадия упала |

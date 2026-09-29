@@ -33,6 +33,7 @@ data/**/*.json.tmp
 
 # ── Серверное развёртывание: секреты и реальный конфиг вне git ─────
 deploy/.env
+!deploy/.env.example
 deploy/config.yaml
 deploy/secrets/*
 !deploy/secrets/.gitkeep
