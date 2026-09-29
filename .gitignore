@@ -36,3 +36,6 @@ deploy/.env
 deploy/config.yaml
 deploy/secrets/*
 !deploy/secrets/.gitkeep
+
+# ── Выгрузки объявлений из кабинетов площадок (данные кабинета, не в git) ──
+exports/

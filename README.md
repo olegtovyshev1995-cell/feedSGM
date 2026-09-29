@@ -239,3 +239,25 @@ python -m src.enrich                        # добавьте --force для п
 - Точную схему справочников Avito/Auto.ru/Drom под конкретную модель мы не выдумываем — теги строятся по заголовкам ваших листов и шаблонам площадок. Для Drom числовые `id*`-поля требуют `ref.xml`; по умолчанию используются текстовые `s*`-поля (марка/модель/город текстом).
 - Корректность значений (реальные цены, наличие, соответствие справочникам площадок) — вне зоны валидатора: он ловит только пустоту и структуру.
 - Мапперы ЦИАН и др. пока не реализованы — есть интерфейс, чтобы добавить их по образцу.
+
+---
+
+## Выгрузка всех объявлений из кабинета Auto.ru (API)
+
+`scripts/autoru_export.py` забирает **все** объявления кабинета через API
+Auto.ru (`https://apiauto.ru/1.0`) и сохраняет их в `exports/`:
+полный JSON (все поля как отдаёт API) + CSV ключевых полей (`;`, UTF-8 для Excel).
+
+Как устроен доступ:
+- `x-authorization: Vertis <ключ>` — API-ключ кабинета (`AUTORU_API_KEY`, можно с префиксом `Vertis `);
+- `x-session-id` — сессия пользователя: готовая (`AUTORU_SESSION_ID`) или
+  через `POST /auth/login` по `AUTORU_LOGIN` / `AUTORU_PASSWORD`;
+- `GET /user/offers/{all|cars|moto|trucks}?page=N&page_size=100` — скрипт
+  проходит все страницы по `pagination.total_page_count`; ретраи на 429/5xx.
+
+```bash
+export AUTORU_API_KEY='Vertis ...'        # только из окружения, не в файлах
+export AUTORU_LOGIN='...' AUTORU_PASSWORD='...'
+python scripts/autoru_export.py --category all             # все объявления
+python scripts/autoru_export.py --category cars --status ACTIVE
+```
