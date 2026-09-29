@@ -83,3 +83,12 @@ def test_main_writes_feed(tmp_path, monkeypatch):
 
 def test_main_fails_without_input(tmp_path):
     assert autoru_to_drom.main(["--input", str(tmp_path / "nope.json")]) == 1
+
+
+def test_only_city_split():
+    msk = _offer(1, seller={"location": {"region_info": {"name": "Москва и Московская область"}}})
+    smr = _offer(2, seller={"location": {"region_info": {"name": "Самара"}}})
+    samara, _ = convert([msk, smr], only_city="самара")
+    moscow, _ = convert([msk, smr], only_city="Москва")
+    assert [r["idOffer"] for r in samara] == ["1102-abc"]
+    assert [r["idOffer"] for r in moscow] == ["1101-abc"]

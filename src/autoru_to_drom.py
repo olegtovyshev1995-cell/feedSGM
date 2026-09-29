@@ -13,6 +13,7 @@ ref.xml Drom у нас нет. Объявления без обязательн�
 Запуск:
   python -m src.autoru_to_drom                       # → feeds/drom_autoru.xml
   python -m src.autoru_to_drom --city "Москва"       # город, если в объявлении пусто
+  python -m src.autoru_to_drom --only-city Самара --output drom_samara.xml
 """
 
 from __future__ import annotations
@@ -181,13 +182,21 @@ def is_active_car(offer: dict) -> bool:
     return status == "ACTIVE" and category in ("CARS", "")
 
 
-def convert(offers: list[dict], default_city: str = "") -> tuple[list[dict], list[str]]:
-    """→ (записи Drom, список пропущенных с причиной)."""
+def convert(offers: list[dict], default_city: str = "",
+            only_city: str = "") -> tuple[list[dict], list[str]]:
+    """→ (записи Drom, список пропущенных с причиной).
+
+    only_city — оставить объявления только этого города (без учёта регистра;
+    «Москва» совпадёт и с «Москва и Московская область»).
+    """
     records, skipped = [], []
+    wanted = only_city.strip().lower()
     for offer in offers:
         if not is_active_car(offer):
             continue
         rec = offer_to_drom(offer, default_city)
+        if wanted and not rec["sCity"].lower().startswith(wanted):
+            continue
         missing = [f for f in DROM_REQUIRED if not rec.get(f)]
         if missing:
             skipped.append(f"{rec['idOffer'] or '?'} ({rec['sMark']} {rec['sModel']}): "
@@ -210,6 +219,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--output", default=DEFAULT_OUTPUT, help="имя файла в feeds/")
     parser.add_argument("--city", default=os.environ.get("DROM_CITY", ""),
                         help="город по умолчанию, если в объявлении не указан")
+    parser.add_argument("--only-city", default="",
+                        help="только объявления этого города (напр. Самара)")
     args = parser.parse_args(argv)
     _setup_logging()
 
@@ -218,7 +229,7 @@ def main(argv: list[str] | None = None) -> int:
         logger.error("нет файла выгрузки %s — сначала запустите scripts/autoru_export.py", src)
         return 1
     offers = json.loads(src.read_text(encoding="utf-8"))
-    records, skipped = convert(offers, args.city)
+    records, skipped = convert(offers, args.city, args.only_city)
     for line in skipped:
         logger.warning("пропущено: %s", line)
     if not records:
@@ -228,7 +239,8 @@ def main(argv: list[str] | None = None) -> int:
 
     out = FEEDS_DIR / args.output
     atomic_write(out, build_feed(records))
-    logger.info("фид Drom: %s объявлений → %s (пропущено: %s)",
+    logger.info("фид Drom%s: %s объявлений → %s (пропущено: %s)",
+                f" [{args.only_city}]" if args.only_city else "",
                 len(records), out, len(skipped))
     print(out)
     return 0
