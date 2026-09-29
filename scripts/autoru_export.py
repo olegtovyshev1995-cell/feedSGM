@@ -27,7 +27,8 @@
 
 Пример:
   export AUTORU_API_KEY=...  AUTORU_LOGIN=...  AUTORU_PASSWORD=...
-  python scripts/autoru_export.py --category all
+  python scripts/autoru_export.py --category all          # все
+  python scripts/autoru_export.py --inactive              # только неактивные
 """
 
 from __future__ import annotations
@@ -151,25 +152,43 @@ class AutoruClient:
         return session_id
 
     def iter_offers(self, category: str = "all", *, page_size: int = 100,
-                    status: str | None = None, max_pages: int = 10_000):
-        """Генератор всех объявлений категории, страница за страницей."""
+                    status: str | list[str] | None = None, max_pages: int = 10_000):
+        """Генератор всех объявлений категории, страница за страницей.
+
+        status — один статус или список (ACTIVE, INACTIVE, …); None — все.
+        Фильтр уходит в API и дополнительно применяется на нашей стороне,
+        чтобы в выгрузку не попали чужие статусы, если API его проигнорирует.
+        """
         if not self.session_id:
             raise AutoruApiError("Нет сессии: задайте AUTORU_SESSION_ID или логин/пароль.")
+        statuses = normalize_statuses(status)
         page = 1
         while page <= max_pages:
             params: dict[str, Any] = {"page": page, "page_size": page_size}
-            if status:
-                params["status"] = status
+            if statuses:
+                params["status"] = statuses if len(statuses) > 1 else statuses[0]
             data = self._call("GET", f"/user/offers/{category}", params=params)
             offers = data.get("offers") or []
             pagination = data.get("pagination") or {}
             total_pages = int(pagination.get("total_page_count") or 0)
             logger.info("страница %s/%s: %s объявл.", page, total_pages or "?", len(offers))
-            yield from offers
+            for offer in offers:
+                offer_status = str(offer.get("status") or "").upper()
+                if statuses and offer_status and offer_status not in statuses:
+                    continue
+                yield offer
             # Стоп: пустая страница или дошли до последней по pagination.
             if not offers or (total_pages and page >= total_pages):
                 return
             page += 1
+
+
+def normalize_statuses(status: str | list[str] | None) -> list[str]:
+    """'inactive' / 'ACTIVE,INACTIVE' / ['active'] → ['INACTIVE'] / ['ACTIVE', 'INACTIVE']."""
+    if not status:
+        return []
+    items = status.split(",") if isinstance(status, str) else status
+    return [s.strip().upper() for s in items if s and s.strip()]
 
 
 def dig(obj: Any, dotted: str) -> Any:
@@ -224,11 +243,12 @@ def offer_to_row(offer: dict) -> dict:
     return row
 
 
-def write_outputs(offers: list[dict], out_dir: Path, category: str) -> tuple[Path, Path]:
+def write_outputs(offers: list[dict], out_dir: Path, name: str) -> tuple[Path, Path]:
+    """name — часть имени файла: категория, либо категория_статус (all_inactive)."""
     out_dir.mkdir(parents=True, exist_ok=True)
     stamp = datetime.now().strftime("%Y-%m-%d_%H%M")
-    json_path = out_dir / f"autoru_offers_{category}_{stamp}.json"
-    csv_path = out_dir / f"autoru_offers_{category}_{stamp}.csv"
+    json_path = out_dir / f"autoru_offers_{name}_{stamp}.json"
+    csv_path = out_dir / f"autoru_offers_{name}_{stamp}.csv"
     json_path.write_text(json.dumps(offers, ensure_ascii=False, indent=2), encoding="utf-8")
     # utf-8-sig — чтобы Excel сразу открыл кириллицу без кракозябр.
     with csv_path.open("w", encoding="utf-8-sig", newline="") as fh:
@@ -238,7 +258,7 @@ def write_outputs(offers: list[dict], out_dir: Path, category: str) -> tuple[Pat
             writer.writerow(offer_to_row(offer))
     # Стабильные имена «последней выгрузки» — их читают следующие стадии на сервере.
     for src in (json_path, csv_path):
-        latest = out_dir / f"autoru_offers_{category}_latest{src.suffix}"
+        latest = out_dir / f"autoru_offers_{name}_latest{src.suffix}"
         tmp = latest.with_suffix(latest.suffix + ".tmp")
         tmp.write_bytes(src.read_bytes())
         os.replace(tmp, latest)
@@ -260,11 +280,16 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Выгрузка всех объявлений Auto.ru через API")
     parser.add_argument("--category", choices=CATEGORIES, default="all")
     parser.add_argument("--status", default=None,
-                        help="фильтр по статусу (напр. ACTIVE, INACTIVE); по умолчанию — все")
+                        help="фильтр по статусу, можно через запятую "
+                             "(ACTIVE, INACTIVE, …); по умолчанию — все")
+    parser.add_argument("--inactive", action="store_true",
+                        help="только неактивные объявления (= --status INACTIVE)")
     parser.add_argument("--page-size", type=int, default=100)
     parser.add_argument("--out", default=str(PROJECT_ROOT / "exports"))
     parser.add_argument("--base-url", default=os.environ.get("AUTORU_API_URL", DEFAULT_BASE_URL))
     args = parser.parse_args(argv)
+    statuses = normalize_statuses("INACTIVE" if args.inactive else args.status)
+    name = "_".join([args.category, *[s.lower() for s in statuses]])
 
     logging.basicConfig(level=logging.INFO, stream=sys.stderr,
                         format="%(asctime)s %(levelname)s %(name)s: %(message)s")
@@ -283,13 +308,17 @@ def main(argv: list[str] | None = None) -> int:
                 )
             client.login(login, password)
         offers = list(client.iter_offers(args.category, page_size=args.page_size,
-                                         status=args.status))
+                                         status=statuses or None))
     except AutoruApiError as exc:
         logger.error("%s", exc)
         return 1
 
-    json_path, csv_path = write_outputs(offers, Path(args.out), args.category)
-    logger.info("выгружено объявлений: %s", len(offers))
+    json_path, csv_path = write_outputs(offers, Path(args.out), name)
+    by_status: dict[str, int] = {}
+    for offer in offers:
+        key = str(offer.get("status") or "?")
+        by_status[key] = by_status.get(key, 0) + 1
+    logger.info("выгружено объявлений: %s (по статусам: %s)", len(offers), by_status or "—")
     print(json_path)
     print(csv_path)
     return 0

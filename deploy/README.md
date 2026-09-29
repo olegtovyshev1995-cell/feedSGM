@@ -87,13 +87,17 @@ curl -I https://<ВАШ_ДОМЕН>/feeds/avito.xml
 кабинета сохраняются в том `exports`:
 
 - `autoru_offers_all_<дата>.json|csv` — снимок каждой выгрузки;
-- `autoru_offers_all_latest.json|csv` — последняя выгрузка (стабильное имя).
+- `autoru_offers_all_latest.json|csv` — последняя выгрузка (стабильное имя);
+- `autoru_offers_all_inactive_latest.json|csv` — только неактивные
+  (отключить: `AUTORU_EXPORT_INACTIVE=0`).
 
 Наружу через Caddy выгрузки **не** раздаются (это данные кабинета).
 
 ```bash
 # выгрузить прямо сейчас
 docker compose run --rm scheduler python scripts/autoru_export.py --category all
+# только неактивные
+docker compose run --rm scheduler python scripts/autoru_export.py --inactive
 # скопировать CSV на хост
 docker compose cp scheduler:/app/exports/autoru_offers_all_latest.csv .
 ```

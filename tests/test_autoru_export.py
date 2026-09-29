@@ -96,3 +96,33 @@ def test_latest_copy_and_env_file(tmp_path, monkeypatch):
     monkeypatch.delenv("AUTORU_PASSWORD", raising=False)
     monkeypatch.setenv("AUTORU_PASSWORD_FILE", str(secret))
     assert _env_or_file("AUTORU_PASSWORD") == "s3cret"
+
+
+def test_inactive_filter_param_and_client_side():
+    active, inactive = _offer(1), _offer(2)
+    inactive["status"] = "INACTIVE"
+    api = FakeApi([[active, inactive]])
+    client = AutoruClient("k", session_id="s", requester=api, sleep=lambda s: None)
+    offers = list(client.iter_offers("all", status="inactive"))
+
+    assert [o["id"] for o in offers] == ["2-abc"]
+    assert api.calls[-1][3]["status"] == "INACTIVE"
+
+
+def test_main_inactive_writes_separate_file(tmp_path, monkeypatch):
+    from scripts import autoru_export
+
+    inactive = _offer(2)
+    inactive["status"] = "INACTIVE"
+    api = FakeApi([[_offer(1), inactive]])
+    real_init = AutoruClient.__init__
+
+    def fake_init(self, api_key, **kw):
+        real_init(self, api_key, requester=api, sleep=lambda s: None, **kw)
+
+    monkeypatch.setattr(AutoruClient, "__init__", fake_init)
+    monkeypatch.setenv("AUTORU_API_KEY", "k")
+    monkeypatch.setenv("AUTORU_SESSION_ID", "s")
+    assert autoru_export.main(["--inactive", "--out", str(tmp_path)]) == 0
+    data = json.loads((tmp_path / "autoru_offers_all_inactive_latest.json").read_text("utf-8"))
+    assert [o["id"] for o in data] == ["2-abc"]

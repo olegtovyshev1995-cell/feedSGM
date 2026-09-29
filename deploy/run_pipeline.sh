@@ -27,6 +27,11 @@ run_once() {
   # (нужны AUTORU_API_KEY + логин/пароль или сессия). Без ключа — пропуск.
   if [ -n "${AUTORU_API_KEY:-}${AUTORU_API_KEY_FILE:-}" ]; then
     run_stage "autoru_export" python scripts/autoru_export.py --category "${AUTORU_CATEGORY:-all}"
+    # Отдельный файл только с неактивными (выключить: AUTORU_EXPORT_INACTIVE=0).
+    if [ "${AUTORU_EXPORT_INACTIVE:-1}" != "0" ]; then
+      run_stage "autoru_export_inactive" python scripts/autoru_export.py \
+        --category "${AUTORU_CATEGORY:-all}" --inactive
+    fi
   else
     log "стадия autoru_export: пропуск (AUTORU_API_KEY не задан)"
   fi

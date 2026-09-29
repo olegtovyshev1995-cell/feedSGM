@@ -259,5 +259,6 @@ Auto.ru (`https://apiauto.ru/1.0`) и сохраняет их в `exports/`:
 export AUTORU_API_KEY='Vertis ...'        # только из окружения, не в файлах
 export AUTORU_LOGIN='...' AUTORU_PASSWORD='...'
 python scripts/autoru_export.py --category all             # все объявления
+python scripts/autoru_export.py --inactive                 # только неактивные
 python scripts/autoru_export.py --category cars --status ACTIVE
 ```
